@@ -1,0 +1,685 @@
+{
+  "formatVersion": 1,
+  "exportedAt": "2026-09-29T12:00:00.000Z",
+  "game": {
+    "id": "game-forja",
+    "name": "Guardianes de la Forja",
+    "description": "Juego ficticio para validar el editor.",
+    "rules": "Cada jugador comienza con tres cartas.\nEn tu turno, juega una Unidad o un Artefacto.\nEste reglamento es un ejemplo de prueba.",
+    "createdAt": "2026-09-29T12:00:00.000Z",
+    "updatedAt": "2026-09-29T12:00:00.000Z"
+  },
+  "definitions": {
+    "supertypes": [
+      {
+        "id": "legendary",
+        "name": "Legendario"
+      },
+      {
+        "id": "ancient",
+        "name": "Ancestral"
+      }
+    ],
+    "types": [
+      {
+        "id": "unit",
+        "name": "Unidad",
+        "attributeIds": [
+          "resistance",
+          "attack",
+          "cost",
+          "affinity"
+        ]
+      },
+      {
+        "id": "artifact",
+        "name": "Artefacto",
+        "attributeIds": [
+          "resistance",
+          "cost",
+          "active"
+        ]
+      }
+    ],
+    "subtypes": [
+      {
+        "id": "guardian",
+        "name": "Guardián",
+        "typeId": "unit"
+      },
+      {
+        "id": "scout",
+        "name": "Explorador",
+        "typeId": "unit"
+      },
+      {
+        "id": "relic",
+        "name": "Reliquia",
+        "typeId": "artifact"
+      },
+      {
+        "id": "machine",
+        "name": "Máquina",
+        "typeId": "artifact"
+      }
+    ],
+    "attributes": [
+      {
+        "id": "resistance",
+        "name": "Resistencia",
+        "kind": "number",
+        "defaultValue": 3,
+        "min": 0,
+        "max": 99
+      },
+      {
+        "id": "attack",
+        "name": "Ataque",
+        "kind": "number",
+        "defaultValue": 2,
+        "min": 0
+      },
+      {
+        "id": "cost",
+        "name": "Coste",
+        "symbolImageId": "energy-symbol",
+        "kind": "text",
+        "defaultValue": "1 energía"
+      },
+      {
+        "id": "active",
+        "name": "Activado",
+        "kind": "boolean",
+        "defaultValue": false
+      },
+      {
+        "id": "affinity",
+        "name": "Afinidad",
+        "kind": "select",
+        "options": [
+          "Fuego",
+          "Agua",
+          "Tierra"
+        ],
+        "defaultValue": "Fuego"
+      }
+    ],
+    "resources": [
+      {
+        "id": "energy",
+        "name": "Energía",
+        "symbolImageId": "energy-symbol"
+      }
+    ],
+    "abilities": [
+      {
+        "id": "flying",
+        "name": "Volar",
+        "kind": "keyword",
+        "reminder": "Solo puede ser bloqueada por unidades con Volar."
+      },
+      {
+        "id": "shield",
+        "name": "Escudo {amount}",
+        "kind": "parameterized",
+        "reminder": "Previene {amount} puntos de daño.",
+        "parameters": [
+          {
+            "id": "amount",
+            "name": "Cantidad",
+            "kind": "number"
+          }
+        ]
+      }
+    ]
+  },
+  "cards": [
+    {
+      "id": "card-01",
+      "name": "Guardián de la Forja",
+      "supertypeIds": [],
+      "typeIds": [
+        "unit"
+      ],
+      "subtypeIds": [
+        "guardian"
+      ],
+      "attributeValues": {
+        "resistance": 3,
+        "attack": 2,
+        "cost": "1 energía",
+        "affinity": "Fuego"
+      },
+      "text": "Al entrar, roba una carta. Después, puedes gastar 1 energía.",
+      "abilities": [],
+      "visual": {
+        "templateId": "illustration",
+        "templateVersion": 1,
+        "colors": {
+          "background": "#F5EAD6",
+          "foreground": "#201B18",
+          "accent": "#A34B24"
+        },
+        "attributeSlots": [
+          "resistance",
+          "attack",
+          "cost",
+          "affinity"
+        ],
+        "illustrationId": "forge-image",
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 1,
+          "height": 1
+        }
+      }
+    },
+    {
+      "id": "card-02",
+      "name": "Exploradora del Alba",
+      "supertypeIds": [],
+      "typeIds": [
+        "unit"
+      ],
+      "subtypeIds": [
+        "scout"
+      ],
+      "attributeValues": {
+        "resistance": 3,
+        "attack": 2,
+        "cost": "1 energía",
+        "affinity": "Agua"
+      },
+      "text": "Al entrar, roba una carta. Después, puedes gastar 1 energía.",
+      "abilities": [],
+      "visual": {
+        "templateId": "illustration",
+        "templateVersion": 1,
+        "colors": {
+          "background": "#F5EAD6",
+          "foreground": "#201B18",
+          "accent": "#A34B24"
+        },
+        "attributeSlots": [
+          "resistance",
+          "attack",
+          "cost",
+          "affinity"
+        ],
+        "illustrationId": "forge-image",
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 1,
+          "height": 1
+        }
+      }
+    },
+    {
+      "id": "card-03",
+      "name": "Núcleo Ancestral",
+      "supertypeIds": [
+        "ancient"
+      ],
+      "typeIds": [
+        "artifact"
+      ],
+      "subtypeIds": [
+        "relic"
+      ],
+      "attributeValues": {
+        "resistance": 3,
+        "cost": "1 energía",
+        "active": false
+      },
+      "text": "Al entrar, roba una carta. Después, puedes gastar 1 energía.",
+      "abilities": [],
+      "visual": {
+        "templateId": "illustration",
+        "templateVersion": 1,
+        "colors": {
+          "background": "#F5EAD6",
+          "foreground": "#201B18",
+          "accent": "#A34B24"
+        },
+        "attributeSlots": [
+          "resistance",
+          "cost",
+          "active",
+          null
+        ],
+        "illustrationId": "forge-image",
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 1,
+          "height": 1
+        }
+      }
+    },
+    {
+      "id": "card-04",
+      "name": "Máquina de Bronce",
+      "supertypeIds": [],
+      "typeIds": [
+        "artifact"
+      ],
+      "subtypeIds": [
+        "machine"
+      ],
+      "attributeValues": {
+        "resistance": 3,
+        "cost": "1 energía",
+        "active": false
+      },
+      "text": "Al entrar, roba una carta. Después, puedes gastar 1 energía.",
+      "abilities": [],
+      "visual": {
+        "templateId": "illustration",
+        "templateVersion": 1,
+        "colors": {
+          "background": "#F5EAD6",
+          "foreground": "#201B18",
+          "accent": "#A34B24"
+        },
+        "attributeSlots": [
+          "resistance",
+          "cost",
+          "active",
+          null
+        ],
+        "illustrationId": "forge-image",
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 1,
+          "height": 1
+        }
+      }
+    },
+    {
+      "id": "card-05",
+      "name": "Centinela Mecánico",
+      "supertypeIds": [],
+      "typeIds": [
+        "unit",
+        "artifact"
+      ],
+      "subtypeIds": [
+        "guardian",
+        "machine"
+      ],
+      "attributeValues": {
+        "resistance": 3,
+        "attack": 2,
+        "cost": "1 energía",
+        "active": false,
+        "affinity": "Fuego"
+      },
+      "text": "Al entrar, roba una carta. Después, puedes gastar 1 energía.",
+      "abilities": [
+        {
+          "definitionId": "shield",
+          "parameters": {
+            "amount": 3
+          },
+          "showReminder": true
+        }
+      ],
+      "visual": {
+        "templateId": "illustration",
+        "templateVersion": 1,
+        "colors": {
+          "background": "#F5EAD6",
+          "foreground": "#201B18",
+          "accent": "#A34B24"
+        },
+        "attributeSlots": [
+          "resistance",
+          "attack",
+          "cost",
+          "active"
+        ],
+        "illustrationId": "forge-image",
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 1,
+          "height": 1
+        }
+      }
+    },
+    {
+      "id": "card-06",
+      "name": "Ícaro, Guardián Aéreo",
+      "supertypeIds": [
+        "legendary",
+        "ancient"
+      ],
+      "typeIds": [
+        "unit"
+      ],
+      "subtypeIds": [
+        "guardian"
+      ],
+      "attributeValues": {
+        "resistance": 3,
+        "attack": 2,
+        "cost": "1 energía",
+        "affinity": "Fuego"
+      },
+      "text": "Al entrar, roba una carta. Después, puedes gastar 1 energía.",
+      "abilities": [
+        {
+          "definitionId": "flying",
+          "parameters": {},
+          "showReminder": true
+        }
+      ],
+      "visual": {
+        "templateId": "illustration",
+        "templateVersion": 1,
+        "colors": {
+          "background": "#F5EAD6",
+          "foreground": "#201B18",
+          "accent": "#A34B24"
+        },
+        "attributeSlots": [
+          "resistance",
+          "attack",
+          "cost",
+          "affinity"
+        ],
+        "illustrationId": "forge-image",
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 1,
+          "height": 1
+        }
+      }
+    },
+    {
+      "id": "card-07",
+      "name": "Égida del Río",
+      "supertypeIds": [],
+      "typeIds": [
+        "artifact"
+      ],
+      "subtypeIds": [
+        "relic"
+      ],
+      "attributeValues": {
+        "resistance": 0,
+        "cost": "1 energía",
+        "active": false
+      },
+      "text": "Al entrar, roba una carta. Después, puedes gastar 1 energía.",
+      "abilities": [
+        {
+          "definitionId": "shield",
+          "parameters": {
+            "amount": 3
+          },
+          "showReminder": false
+        }
+      ],
+      "visual": {
+        "templateId": "illustration",
+        "templateVersion": 1,
+        "colors": {
+          "background": "#F5EAD6",
+          "foreground": "#201B18",
+          "accent": "#A34B24"
+        },
+        "attributeSlots": [
+          "resistance",
+          "cost",
+          "active",
+          null
+        ],
+        "illustrationId": "forge-image",
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 1,
+          "height": 1
+        }
+      }
+    },
+    {
+      "id": "card-08",
+      "name": "Cronista de las Mil Batallas",
+      "supertypeIds": [],
+      "typeIds": [
+        "unit"
+      ],
+      "subtypeIds": [
+        "scout"
+      ],
+      "attributeValues": {
+        "resistance": 3,
+        "attack": 2,
+        "cost": "1 energía",
+        "affinity": "Fuego"
+      },
+      "text": "Al entrar, recuerda una batalla y elige una unidad aliada.\nHasta el final del turno, esa unidad obtiene protección contra el primer daño recibido. Si controlas un Artefacto, puedes devolver una carta de tu descarte a tu mano; después descarta otra carta. Hasta el final del turno, esa unidad obtiene protección contra el primer daño recibido. Si controlas un Artefacto, puedes devolver una carta de tu descarte a tu mano; después descarta otra carta. Hasta el final del turno, esa unidad obtiene protección contra el primer daño recibido. Si controlas un Artefacto, puedes devolver una carta de tu descarte a tu mano; después descarta otra carta. Hasta el final del turno, esa unidad obtiene protección contra el primer daño recibido. Si controlas un Artefacto, puedes devolver una carta de tu descarte a tu mano; después descarta otra carta. Hasta el final del turno, esa unidad obtiene protección contra el primer daño recibido. Si controlas un Artefacto, puedes devolver una carta de tu descarte a tu mano; después descarta otra carta. Hasta el final del turno, esa unidad obtiene protección contra el primer daño recibido. Si controlas un Artefacto, puedes devolver una carta de tu descarte a tu mano; después descarta otra carta. Hasta el final del turno, esa unidad obtiene protección contra el primer daño recibido. Si controlas un Artefacto, puedes devolver una carta de tu descarte a tu mano; después descarta otra carta. ",
+      "abilities": [],
+      "visual": {
+        "templateId": "text",
+        "templateVersion": 1,
+        "colors": {
+          "background": "#F5EAD6",
+          "foreground": "#201B18",
+          "accent": "#A34B24"
+        },
+        "attributeSlots": [
+          "resistance",
+          "attack",
+          "cost",
+          "affinity"
+        ],
+        "illustrationId": "forge-image",
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 1,
+          "height": 1
+        }
+      }
+    },
+    {
+      "id": "card-09",
+      "name": "Piedra sin Rostro",
+      "supertypeIds": [],
+      "typeIds": [
+        "artifact"
+      ],
+      "subtypeIds": [
+        "relic"
+      ],
+      "attributeValues": {
+        "resistance": 3,
+        "cost": "1 energía",
+        "active": false
+      },
+      "text": "Al entrar, roba una carta. Después, puedes gastar 1 energía.",
+      "abilities": [],
+      "visual": {
+        "templateId": "illustration",
+        "templateVersion": 1,
+        "colors": {
+          "background": "#F5EAD6",
+          "foreground": "#201B18",
+          "accent": "#A34B24"
+        },
+        "attributeSlots": [
+          "resistance",
+          "cost",
+          "active",
+          null
+        ],
+        "illustrationId": null,
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 1,
+          "height": 1
+        }
+      }
+    },
+    {
+      "id": "card-10",
+      "name": "Autómata del Crepúsculo",
+      "supertypeIds": [],
+      "typeIds": [
+        "unit",
+        "artifact"
+      ],
+      "subtypeIds": [
+        "scout",
+        "machine"
+      ],
+      "attributeValues": {
+        "resistance": 3,
+        "attack": 2,
+        "cost": "1 energía",
+        "active": false,
+        "affinity": "Fuego"
+      },
+      "text": "Al entrar, roba una carta. Después, puedes gastar 1 energía.",
+      "abilities": [
+        {
+          "definitionId": "flying",
+          "parameters": {},
+          "showReminder": false
+        },
+        {
+          "definitionId": "shield",
+          "parameters": {
+            "amount": 2
+          },
+          "showReminder": true
+        }
+      ],
+      "visual": {
+        "templateId": "illustration",
+        "templateVersion": 1,
+        "colors": {
+          "background": "#F5EAD6",
+          "foreground": "#201B18",
+          "accent": "#A34B24"
+        },
+        "attributeSlots": [
+          "resistance",
+          "attack",
+          "cost",
+          "active"
+        ],
+        "illustrationId": "forge-image",
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 1,
+          "height": 1
+        }
+      }
+    },
+    {
+      "id": "card-11",
+      "name": "Vigía Silencioso",
+      "supertypeIds": [],
+      "typeIds": [
+        "unit"
+      ],
+      "subtypeIds": [],
+      "attributeValues": {
+        "resistance": 3,
+        "attack": 2,
+        "cost": "1 energía",
+        "affinity": "Fuego"
+      },
+      "text": "",
+      "abilities": [],
+      "visual": {
+        "templateId": "illustration",
+        "templateVersion": 1,
+        "colors": {
+          "background": "#F5EAD6",
+          "foreground": "#201B18",
+          "accent": "#A34B24"
+        },
+        "attributeSlots": [
+          "resistance",
+          "attack",
+          "cost",
+          "affinity"
+        ],
+        "illustrationId": null,
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 1,
+          "height": 1
+        }
+      }
+    },
+    {
+      "id": "card-12",
+      "name": "Reliquia Despierta",
+      "supertypeIds": [],
+      "typeIds": [
+        "artifact"
+      ],
+      "subtypeIds": [
+        "relic"
+      ],
+      "attributeValues": {
+        "resistance": 3,
+        "cost": "1 energía",
+        "active": true
+      },
+      "text": "Al entrar, roba una carta. Después, puedes gastar 1 energía.",
+      "abilities": [],
+      "visual": {
+        "templateId": "illustration",
+        "templateVersion": 1,
+        "colors": {
+          "background": "#F5EAD6",
+          "foreground": "#201B18",
+          "accent": "#A34B24"
+        },
+        "attributeSlots": [
+          "resistance",
+          "cost",
+          "active",
+          null
+        ],
+        "illustrationId": "forge-image",
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 1,
+          "height": 1
+        }
+      }
+    }
+  ],
+  "images": [
+    {
+      "id": "forge-image",
+      "kind": "illustration",
+      "originalName": "forja.png",
+      "width": 1200,
+      "height": 900
+    },
+    {
+      "id": "energy-symbol",
+      "kind": "symbol",
+      "originalName": "energia.png",
+      "width": 64,
+      "height": 64
+    }
+  ]
+}
