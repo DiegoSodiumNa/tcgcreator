@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+.proof-panel { display: grid; grid-template-columns: 1fr minmax(230px, 340px); gap: 36px; margin-bottom: 28px; }
+.proof-panel h2 { font-size: 25px; }
+.proof-panel p { font-size: 13px; }
+.proof-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; margin-bottom: 20px; }
+.proof-canvas { width: 100%; min-width: 0; overflow: hidden; }
+@media(max-width:900px) { .proof-panel { grid-template-columns: 1fr; } .proof-canvas { max-width: 340px; margin: auto; } }
+
 :root { --background: #f7f8fa; --foreground: #202c39; --primary: #217866; --border: #e1e6e9; --muted: #657380; --radius: .75rem; }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--background); color: var(--foreground); font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 1.6; }

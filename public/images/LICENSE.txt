@@ -1,0 +1,3 @@
+forja.svg: ilustración vectorial original creada para este proyecto, 2026.
+Se permite usar, modificar y redistribuir este recurso con la aplicación y sus exportaciones, sin atribución obligatoria.
+No contiene recursos de terceros.

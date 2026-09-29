@@ -34,7 +34,7 @@ test('acceso directo, búsqueda, filtros y cantidades', async ({ page }) => {
   await page.goto('/exportar/?game=game-forja');
   await page.getByLabel('Guardián de la Forja', { exact: true }).check();
   await page.getByLabel('Cantidad de Guardián de la Forja').fill('3');
-  await expect(page.getByRole('status')).toHaveText('3copias seleccionadas');
+  await expect(page.locator('.total')).toHaveText('3copias seleccionadas');
 });
 
 test('identificadores desconocidos tienen una salida navegable', async ({ page }) => {

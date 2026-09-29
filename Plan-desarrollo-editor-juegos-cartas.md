@@ -1,7 +1,7 @@
 # Plan de desarrollo — Editor web individual de juegos y cartas
 
 **Revisión:** 2 · 29 de septiembre de 2026  
-**Estado:** pasos 01 y 02 implementados y verificados; pasos 03–12 pendientes.  
+**Estado:** pasos 01 y 02 completos; paso 03 implementado y verificado digitalmente, pendiente de medición física; pasos 04–12 pendientes.  
 **Desarrollo:** Diego, con apoyo de asistentes de programación con IA.  
 **Disponibilidad:** hasta 5 horas por semana.  
 **Presupuesto del prototipo:** servicios gratuitos.
@@ -245,11 +245,13 @@ Cada paso debe terminar con una demostración pequeña. Las horas son una estima
 
 **Estimación:** 6–10 horas. **Dependencias:** paso 02.
 
-- [ ] Dibujar una versión mínima de la plantilla A con una carta de ejemplo.
-- [ ] Incorporar una fuente distribuible con la aplicación y una imagen local de prueba.
-- [ ] Exportar PNG y un PDF con una carta y un cuadro de calibración de 50 mm.
-- [ ] Esperar la carga de imágenes y fuentes antes de renderizar.
+- [x] Dibujar una versión mínima de la plantilla A con una carta de ejemplo.
+- [x] Incorporar una fuente distribuible con la aplicación y una imagen local de prueba.
+- [x] Exportar PNG y un PDF con una carta y un cuadro de calibración de 50 mm.
+- [x] Esperar la carga de imágenes y fuentes antes de renderizar.
 - [ ] Imprimir al 100 %, medir y anotar el resultado.
+
+**Implementación digital del 29 de septiembre de 2026:** prueba fija del Centinela Mecánico disponible en Exportar / imprimir. Escena compartida en Konva, fuente Noto Sans local con licencia OFL, ilustración SVG original, PNG de 744 × 1039 px y PDF Carta con imagen a 63 × 88 mm. Archivos en `output/pdf/`. Comprobados TypeScript, 35 pruebas unitarias, las 5 pruebas de navegación y 2 pruebas de exportación/recursos. PDF renderizado con Ghostscript y revisado visualmente. Registro técnico: `docs/verificacion-paso-03.md`. **Aceptación física y cierre de H1 pendientes** en `docs/calibracion-paso-03.md`.
 
 **Entregable:** primer PNG y PDF de prueba.
 
@@ -458,4 +460,4 @@ Consultadas para fundamentar la arquitectura; los comportamientos y las estimaci
 - [MDN — Cuotas y eliminación del almacenamiento del navegador](https://developer.mozilla.org/en-US/docs/Web/API/Storage_API/Storage_quotas_and_eviction_criteria).
 - [GitHub Pages — Alojamiento estático](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages).
 
-Este documento sustituye el plan anterior de 14 pasos. Los pasos 01 y 02 están implementados y verificados; los pasos 03–12 siguen pendientes.
+Este documento sustituye el plan anterior de 14 pasos. Los pasos 01 y 02 están completos; el paso 03 tiene implementación y verificación digital completas, con medición física pendiente. Los pasos 04–12 siguen pendientes.
