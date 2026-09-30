@@ -97,6 +97,7 @@ test('listado largo permite imágenes pendientes y repite encabezados al paginar
   await page.getByRole('button', { name: 'Crear copia independiente' }).click();
   await page.getByRole('link', { name: 'Abrir juego' }).click();
   await page.getByRole('navigation').getByRole('link', { name: 'Exportar / imprimir', exact: true }).click();
+  await expect(page.locator('.selection-list input[type=checkbox]')).toHaveCount(60);
   await expect(page.locator('.image-recovery')).toContainText('pendientes');
   for (const checkbox of await page.locator('.selection-list input[type=checkbox]').all()) await checkbox.check();
   const pdf = await downloadPdf(page, 'Descargar listado PDF', 'listado-largo');

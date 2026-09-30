@@ -2,7 +2,7 @@
 
 **Revisión:** 7 · 30 de septiembre de 2026
 
-**Estado:** pasos 01, 02 y 04–10 completos; pasos 03 y 11 con verificación digital y medición física pendiente; paso 12 preparado, pendiente de confirmar publicación.
+**Estado:** pasos 01, 02, 04–10 y 12 completos; pasos 03 y 11 con verificación digital y medición física pendiente. Prototipo publicado en `https://diegosodiumna.github.io/tcgcreator/`.
 
 **Desarrollo:** Diego, con apoyo de asistentes de programación con IA.  
 **Disponibilidad:** hasta 5 horas por semana.  
@@ -396,11 +396,11 @@ Cada paso debe terminar con una demostración pequeña. Las horas son una estima
 
 - [x] Elegir alojamiento estático gratuito compatible con el uso previsto.
 - [x] Configurar la compilación, rutas y carga de fuentes e imágenes incorporadas.
-- [ ] Verificar creación, guardado, importación y descargas desde la dirección final.
-- [x] Preparar una guía breve en la aplicación: crear juego, recuperar imágenes, imprimir y hacer respaldos.
+- [x] Verificar creación, guardado, importación y descargas desde la dirección final.
+- [x] Publicar una guía breve en la aplicación: crear juego, recuperar imágenes, imprimir y hacer respaldos.
 - [x] Fijar una dirección estable: `https://diegosodiumna.github.io/tcgcreator/`; cambiar de origen cambia el almacenamiento local accesible.
 
-**Preparado:** GitHub Pages desde repositorio público, flujo Actions con comprobaciones en raíz y subdirectorio, y guía `/guia/`. Procedimiento y recuperación en `docs/publicacion.md`. Publicación y comprobación remota todavía pendientes.
+**Publicado y verificado el 30 de septiembre de 2026:** GitHub Pages desde repositorio público, flujo Actions aprobado en raíz y subdirectorio, y guía `/guia/`. Veinticinco casos comprobados contra la dirección pública, incluidos guardado, reinicio del navegador, importación, recuperación de imágenes y descargas. Procedimiento en `docs/publicacion.md` y evidencia en `docs/verificacion-paso-12.md`.
 
 **Entregable:** editor web disponible y guía de uso.
 
@@ -431,7 +431,7 @@ El primer hito requiere unas 16–26 horas: aproximadamente 4–6 semanas a 5 ho
 
 No se necesita una base de datos alojada ni un servicio de archivos remoto. Todo el procesamiento ocurre en el navegador. El presupuesto del prototipo se mantiene en cero usando herramientas locales y un alojamiento estático gratuito dentro de sus condiciones.
 
-**Candidato inicial:** GitHub Pages si se utiliza un repositorio público en GitHub Free y el proyecto cumple sus condiciones. Publicar el código del editor no publica los juegos guardados en IndexedDB; los juegos e imágenes de usuarios no deben incorporarse al repositorio. Si se requiere código privado, se elegirá otra opción gratuita compatible antes del paso 12.
+**Alojamiento elegido y configurado:** GitHub Pages con el repositorio público `DiegoSodiumNa/tcgcreator`, autorizado por el usuario. Publicar el código del editor no publica los juegos guardados en IndexedDB; los juegos e imágenes de usuarios no deben incorporarse al repositorio.
 
 No se contrata dominio propio en esta etapa. Papel, tinta y herramientas de IA ya utilizadas no están incluidos en el presupuesto de infraestructura. No se añaden llamadas a APIs de IA dentro de la aplicación.
 
@@ -461,7 +461,7 @@ No quedan preguntas que bloqueen el inicio. Estos detalles se prueban antes de c
 - Tipografía incorporada, tamaños mínimos y paleta inicial.
 - Tamaño máximo de cada imagen y de los JSON importables, según pruebas de memoria.
 - Objetivos de rendimiento medidos con 200 cartas; ese número es una meta de validación, no un límite rígido confirmado.
-- Elección final del alojamiento gratuito y visibilidad del repositorio.
+- Alojamiento y visibilidad ya fijados: GitHub Pages y repositorio público.
 
 Estas propuestas no añaden módulos nuevos. Si una función futura implica cuentas, nube, colaboración o un editor libre, se evaluará en un plan separado.
 
@@ -480,4 +480,4 @@ Consultadas para fundamentar la arquitectura; los comportamientos y las estimaci
 - [MDN — Cuotas y eliminación del almacenamiento del navegador](https://developer.mozilla.org/en-US/docs/Web/API/Storage_API/Storage_quotas_and_eviction_criteria).
 - [GitHub Pages — Alojamiento estático](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages).
 
-Este documento sustituye el plan anterior de 14 pasos. Los pasos 01, 02 y 04–10 están completos. Los pasos 03 y 11 tienen verificación digital con aceptación física pendiente. El paso 12 está preparado; su publicación se confirma por separado.
+Este documento sustituye el plan anterior de 14 pasos. Los pasos 01, 02, 04–10 y 12 están completos. Los pasos 03 y 11 tienen verificación digital con aceptación física pendiente. El prototipo está publicado y comprobado en su dirección final.

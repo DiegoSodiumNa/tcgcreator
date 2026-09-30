@@ -2,6 +2,8 @@
 
 Destino acordado: **https://diegosodiumna.github.io/tcgcreator/**. Repositorio público `DiegoSodiumNa/tcgcreator`, rama `master`. La prueba física pendiente no bloquea esta publicación; se indica en la guía de uso.
 
+**Publicado y verificado el 30 de septiembre de 2026.** Resultados en [verificacion-paso-12.md](verificacion-paso-12.md).
+
 ## Compilación y rutas
 
 La aplicación sigue siendo estática. No hay servidor, cuentas, sincronización ni service worker. `out/` es el único contenido publicado. `NEXT_PUBLIC_BASE_PATH` se fija al compilar: vacío para desarrollo, `/tcgcreator` para Pages. `next/link` gestiona enlaces; los recursos públicos usan el mismo prefijo. No se debe añadirlo otra vez a los enlaces de Next.

@@ -6,6 +6,8 @@ La aprobación física permanece pendiente; por decisión del usuario no bloquea
 
 Comprobado localmente el 30 de septiembre de 2026: TypeScript, contrato JSON y **111 pruebas unitarias**; **44 casos Playwright en raíz** y **45 bajo `/tcgcreator/`**, después de añadir el listado largo. Ambas compilaciones estáticas terminaron correctamente. Los PDF se renderizaron con Ghostscript y se revisaron visualmente; la extracción verificó 70 párrafos completos y un listado de 60 entradas con encabezados en sus tres páginas.
 
+La [ejecución de GitHub Actions](https://github.com/DiegoSodiumNa/tcgcreator/actions/runs/36769562792) del commit `bb387b8` también aprobó los **45 casos en cada configuración** sobre Linux, además de las 111 pruebas unitarias, contrato y compilaciones.
+
 La suite reúne creación de juegos y conceptos, clasificación compatible, atributos compartidos, creación/duplicación/borrado de cartas, habilidades compartidas y cancelación, plantillas A/B, quinto atributo, desbordamiento, recuperación de imágenes, importaciones dañadas, cuota de almacenamiento y conflictos entre pestañas.
 
 También comprueba reglamento, listado, PNG, PDF de cartas, geometría Carta/A4, calibración, última hoja incompleta, protección de borradores, recarga y reinicio de Chromium con un perfil persistente.

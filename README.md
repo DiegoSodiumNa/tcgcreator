@@ -1,6 +1,6 @@
 # Editor de juegos y cartas
 
-Pasos 01, 02 y 04–10 implementados; verificación integral digital del paso 11 y preparación de GitHub Pages del paso 12. La medición física de los pasos 03 y 11 sigue pendiente. Aplicación estática con juegos e imágenes en IndexedDB, dos plantillas, respaldo JSON y exportación de cartas, reglamento y listado.
+**Prototipo publicado: [Abrir Forja](https://diegosodiumna.github.io/tcgcreator/).** Pasos 01, 02, 04–10 y 12 implementados; verificación digital del paso 11 completa. La medición física de los pasos 03 y 11 sigue pendiente. Aplicación estática con juegos e imágenes en IndexedDB, dos plantillas, respaldo JSON y exportación de cartas, reglamento y listado.
 
 La **Guía de uso**, accesible desde la barra lateral, explica el recorrido completo. Instrucciones de despliegue y recuperación en [docs/publicacion.md](docs/publicacion.md).
 
