@@ -212,4 +212,7 @@ input[type=file] { width: 100%; }
 .recovery-row { border-top: 1px solid #ddd; padding: 16px 0; overflow-wrap: anywhere; }
 .sheet-preview { width: 100%; max-height: 760px; background: white; border: 1px solid #ddd; margin-top: 16px; }
 .export-feedback { padding: 16px 0; overflow-wrap: anywhere; }
+.usage-guide { max-width: 900px; margin: 0 auto; padding: 32px 20px; }
+.usage-guide .panel p { line-height: 1.7; }
+.usage-guide h2 { margin-top: 28px; }
 .visual-preview [role=alert] { color: #8b3024; margin-top: 16px; }

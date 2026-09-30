@@ -1,0 +1,31 @@
+{
+  "measurements": [
+    {
+      "importMs": 902,
+      "openMs": 321,
+      "exportMs": 26132
+    },
+    {
+      "importMs": 461,
+      "openMs": 307,
+      "exportMs": 26195
+    },
+    {
+      "importMs": 480,
+      "openMs": 395,
+      "exportMs": 27212
+    }
+  ],
+  "medians": {
+    "importMs": 480,
+    "openMs": 321,
+    "exportMs": 26195
+  },
+  "pages": 23,
+  "browser": "153.0.8010.12",
+  "system": "win32 10.0.19045",
+  "cpu": "Intel(R) Core(TM) i7-4790 CPU @ 3.60GHz",
+  "memoryGiB": 16,
+  "revision": "42cbe519a989edccdba5f6d48d75e0f774772cb9",
+  "measuredAt": "2026-09-30T19:54:48.930Z"
+}

@@ -1,9 +1,10 @@
 import { abilityText, unassignedAttributes } from '../domain/rules.ts';
 import type { Card, GameFile } from '../domain/schema.ts';
+import { publicPath } from '../lib/paths';
 
 export const FONT_FAMILY = 'Forja Noto';
-export const FONT_URL = '/fonts/NotoSans-Regular.ttf';
-export const ILLUSTRATION_URL = '/images/forja.svg';
+export const FONT_URL = publicPath('/fonts/NotoSans-Regular.ttf');
+export const ILLUSTRATION_URL = publicPath('/images/forja.svg');
 
 export function displayValue(value: string | number | boolean) {
   return typeof value === 'boolean' ? (value ? 'Sí' : 'No') : String(value);

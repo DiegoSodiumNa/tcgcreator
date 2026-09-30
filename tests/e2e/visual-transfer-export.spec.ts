@@ -1,3 +1,4 @@
+import { appUrl } from './urls';
 import { test, expect, type Page } from '@playwright/test';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { PDFDocument, PDFName, PDFRawStream, decodePDFRawStream } from 'pdf-lib';
@@ -6,7 +7,7 @@ import type { GameFile } from '../../src/domain/schema';
 import { createExample, openCentinela, readGame } from './helpers';
 
 async function importGame(page: Page, game: GameFile) {
-  await page.goto('/');
+  await page.goto(appUrl('/'));
   await page.getByLabel('Importar archivo JSON').setInputFiles({ name: 'juego.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(game)) });
   await page.getByRole('button', { name: 'Crear copia independiente' }).click();
   await expect(page.getByRole('status').filter({ hasText: 'Copia importada' })).toBeVisible();
@@ -77,6 +78,7 @@ test('respaldo JSON real, copias independientes e imágenes recuperadas', async 
   const event = page.waitForEvent('download'); await page.getByRole('button', { name: 'Exportar juego' }).click();
   const download = await event; const path = await download.path(); const json = await readFile(path!, 'utf8');
   const backup = JSON.parse(json) as GameFile;
+  expect(backup.game.rules).toBe(original.data.game.rules);
   expect(backup.cards).toEqual(original.data.cards); expect(json).not.toContain('blob:'); expect(backup).not.toHaveProperty('revision');
   await page.getByLabel('Importar archivo JSON').setInputFiles({ name: 'backup.json', mimeType: 'application/json', buffer: Buffer.from(json) });
   await page.getByRole('button', { name: 'Crear copia independiente' }).click();
@@ -127,20 +129,28 @@ test('PNG, seis frentes, Carta/A4, última hoja incompleta y recursos reutilizad
   await page.getByLabel('Margen de hoja (mm)').fill('100'); await expect(page.getByRole('button', { name: 'Descargar PDF de la selección' })).toBeDisabled();
 });
 
-test('200 cartas: abre, selecciona y exporta sin montar todas las hojas', async ({ page }) => {
-  test.setTimeout(120_000);
-  const start = Date.now(); await importGame(page, simpleGame(200));
-  await page.getByRole('link', { name: 'Abrir juego' }).click(); await expect(page.locator('.card-tile')).toHaveCount(200);
-  const opened = Date.now();
-  await page.getByRole('navigation').getByRole('link', { name: 'Exportar / imprimir' }).click();
-  await expect(page.locator('.selection-list input[type=checkbox]')).toHaveCount(200);
-  // Real checkbox interaction; no direct mutation of application state.
-  for (const checkbox of await page.locator('.selection-list input[type=checkbox]').all()) await checkbox.check();
-  await expect(page.locator('.sheet-preview')).toHaveCount(1);
-  const exportStart = Date.now();
-  const pdf = await readPdfDownload(page, 'tanda-200'); expect(pdf.getPageCount()).toBe(23);
-  const timings = { importedAndOpenedMs: opened - start, export200DesignsMs: Date.now() - exportStart, pages: pdf.getPageCount(), browser: 'Chromium', measuredAt: new Date().toISOString() };
-  await writeFile('output/pdf/performance-200.json', JSON.stringify(timings, null, 2));
+test('200 cartas: abre, selecciona y exporta sin montar todas las hojas', async ({ page, browser }) => {
+  const runs = process.env.FORJA_BENCHMARK === '1' ? 3 : 1;
+  test.setTimeout(runs * 120_000);
+  const measurements: { importMs: number; openMs: number; exportMs: number }[] = [];
+  for (let run = 0; run < runs; run++) {
+    const start = Date.now(); await importGame(page, simpleGame(200));
+    const imported = Date.now();
+    await page.getByRole('link', { name: 'Abrir juego' }).first().click(); await expect(page.locator('.card-tile')).toHaveCount(200);
+    const opened = Date.now();
+    await page.getByRole('navigation').getByRole('link', { name: 'Exportar / imprimir' }).click();
+    await expect(page.locator('.selection-list input[type=checkbox]')).toHaveCount(200);
+    for (const checkbox of await page.locator('.selection-list input[type=checkbox]').all()) await checkbox.check();
+    await expect(page.locator('.sheet-preview')).toHaveCount(1);
+    const exportStart = Date.now();
+    const pdf = await readPdfDownload(page, 'tanda-200'); expect(pdf.getPageCount()).toBe(23);
+    measurements.push({ importMs: imported - start, openMs: opened - imported, exportMs: Date.now() - exportStart });
+  }
+  const median = (key: keyof typeof measurements[number]) => measurements.map(row => row[key]).sort((a, b) => a - b)[Math.floor(runs / 2)];
+  const os = await import('node:os');
+  const { execFileSync } = await import('node:child_process');
+  const timings = { measurements, medians: { importMs: median('importMs'), openMs: median('openMs'), exportMs: median('exportMs') }, pages: 23, browser: browser.version(), system: `${os.platform()} ${os.release()}`, cpu: os.cpus()[0]?.model, memoryGiB: Math.round(os.totalmem() / 1024 ** 3), revision: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(), measuredAt: new Date().toISOString() };
+  await writeFile(`output/pdf/performance-200${runs === 3 ? '-benchmark' : ''}.json`, JSON.stringify(timings, null, 2));
   test.info().annotations.push({ type: 'performance', description: JSON.stringify(timings) });
 });
 

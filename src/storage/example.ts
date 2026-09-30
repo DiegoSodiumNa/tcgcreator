@@ -1,13 +1,14 @@
 import { demoGame } from '../fixtures/demo-game';
 import { copyGame } from '../domain/game-transfer';
 import type { PendingImage } from './repository';
+import { publicPath } from '../lib/paths';
 
 export function copyExample() { return copyGame(demoGame); }
 
 export async function prepareExample() {
   const game = copyExample();
   // Rasterize the trusted bundled SVG before entering the IndexedDB transaction.
-  const response = await fetch('/images/forja.svg');
+  const response = await fetch(publicPath('/images/forja.svg'));
   if (!response.ok) throw new Error('No se pudo cargar la ilustración del ejemplo. Vuelve a intentarlo.');
   const url = URL.createObjectURL(await response.blob());
   const images: PendingImage[] = [];

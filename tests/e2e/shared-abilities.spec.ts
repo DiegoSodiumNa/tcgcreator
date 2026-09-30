@@ -1,3 +1,4 @@
+import { appUrl } from './urls';
 import { test, expect, type Page } from '@playwright/test';
 import { createExample, readGame } from './helpers';
 
@@ -66,7 +67,7 @@ test('migra parámetros por uso, bloquea vacíos y permite retirar los obsoletos
 
 test('una revisión de habilidad no sobrescribe el juego cambiado desde otra pestaña', async ({ page, context }) => {
   await editShield(page); const before = await readGame(page);
-  const second = await context.newPage(); await second.goto(`/configuracion/?game=${before.id}`);
+  const second = await context.newPage(); await second.goto(appUrl(`/configuracion/?game=${before.id}`));
   await expect(second.getByLabel('Nombre del juego', { exact: true })).toBeVisible();
   await page.getByLabel('Nombre del concepto').fill('Protección {amount}'); await page.getByRole('button', { name: 'Guardar concepto' }).click();
   await expect(page.getByRole('dialog', { name: 'Revisar habilidad compartida' })).toBeVisible();

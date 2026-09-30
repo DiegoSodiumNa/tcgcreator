@@ -2,6 +2,7 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from './ui/button';
+import { appPath } from '@/lib/paths';
 import { Modal } from './ui/modal';
 
 type Draft = { dirty: boolean; busy: boolean; save: () => Promise<boolean> };
@@ -57,7 +58,7 @@ export function DraftGuard({ children }: { children: ReactNode }) {
       if (target.pathname === location.pathname && target.search === location.search) return;
       event.preventDefault(); event.stopPropagation();
       if (draft.current?.busy || restoring.current) return;
-      const destination: Destination = { kind: 'link', href: target.pathname + target.search + target.hash };
+      const destination: Destination = { kind: 'link', href: appPath(target.pathname) + target.search + target.hash };
       if (!draft.current?.dirty) { navigate(destination); return; }
       pending.current = destination;
       setAsking(true);

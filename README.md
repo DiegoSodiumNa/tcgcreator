@@ -1,6 +1,8 @@
 # Editor de juegos y cartas
 
-Pasos 01, 02 y 04–09 implementados; paso 03 verificado digitalmente, pendiente de medición física. Aplicación estática con juegos e imágenes en IndexedDB, dos plantillas, respaldo JSON, recuperación de imágenes y exportación PNG/PDF de tandas.
+Pasos 01, 02 y 04–10 implementados; verificación integral digital del paso 11 y preparación de GitHub Pages del paso 12. La medición física de los pasos 03 y 11 sigue pendiente. Aplicación estática con juegos e imágenes en IndexedDB, dos plantillas, respaldo JSON y exportación de cartas, reglamento y listado.
+
+La **Guía de uso**, accesible desde la barra lateral, explica el recorrido completo. Instrucciones de despliegue y recuperación en [docs/publicacion.md](docs/publicacion.md).
 
 ## Arranque
 
@@ -45,7 +47,11 @@ En **Exportar / imprimir**, selecciona cartas y cantidades enteras positivas. Ce
 
 **Descargar PNG individual** exporta una carta guardada a 744 × 1039 px. **Descargar PDF de la selección** coloca cada copia a 63 × 88 mm, con marcas exteriores. La exportación comprueba las cartas, muestra progreso, permite cancelar y reutiliza cada diseño. Ante errores conserva la selección. Si otra pestaña cambió el juego, solicita recargar antes de descargar.
 
-La hoja de calibración es opcional. Con márgenes que no dejan espacio para la indicación de escala se añade una hoja de instrucciones y se incluye en el contador. Imprime al **100 %**, sin ajustar a página. Los PDF de reglamento y listado corresponden al paso 10.
+La hoja de calibración es opcional. Con márgenes que no dejan espacio para la indicación de escala se añade una hoja de instrucciones y se incluye en el contador. Imprime al **100 %**, sin ajustar a página.
+
+**Descargar listado PDF** usa los nombres, orden y cantidades de la misma selección, con el total de copias y encabezados repetidos. No requiere imágenes listas ni comparte los márgenes de corte: los documentos usan márgenes de 20 mm. Si otra pestaña cambió el juego, exige recargar antes de descargar.
+
+En **Reglamento**, escribe párrafos y saltos de línea y elige Carta/A4. **Descargar reglamento PDF** exporta el texto visible, incluidos cambios sin guardar; no guarda el juego. Ambos documentos incorporan Noto Sans y paginación. Un carácter no admitido por la fuente se identifica antes de descargar. El reglamento guardado ya está incluido en el JSON de respaldo.
 
 ## Configurar los conceptos del juego
 
@@ -81,7 +87,7 @@ npm run build
 npm run preview
 ```
 
-Abrir `http://127.0.0.1:4173`. `preview` sirve exclusivamente los archivos de `out/`, sin ejecutar Next.js. Ese directorio se puede servir con cualquier servidor estático que resuelva `ruta/index.html`. Node.js solo es necesario para desarrollar, compilar y ejecutar este servidor de prueba, no para el alojamiento final. No se usan endpoints, Server Actions, rutas dinámicas ni fuentes remotas. La configuración actual supone alojamiento en la raíz del dominio; un subdirectorio requiere configurar `basePath` antes de compilar.
+Abrir `http://127.0.0.1:4173`. `preview` sirve exclusivamente los archivos de `out/`, sin ejecutar Next.js. Ese directorio se puede servir con cualquier servidor estático que resuelva `ruta/index.html`. Node.js solo es necesario para desarrollar, compilar y ejecutar este servidor de prueba, no para el alojamiento final. No se usan endpoints, Server Actions, rutas dinámicas ni fuentes remotas. Para Pages, fija `NEXT_PUBLIC_BASE_PATH=/tcgcreator` antes de compilar y también al ejecutar la vista previa; abre `http://127.0.0.1:4173/tcgcreator/`. El valor vacío mantiene el desarrollo en raíz.
 
 ## Comprobación
 

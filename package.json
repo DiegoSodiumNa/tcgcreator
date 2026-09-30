@@ -11,7 +11,7 @@
     "dev": "next dev",
     "build": "next build",
     "preview": "node scripts/serve-static.mjs",
-    "test:e2e": "npm run build && playwright test",
+    "test:e2e": "npm run build && node scripts/test-browser.mjs",
     "check:all": "npm run check && npm run test:e2e",
     "test": "vitest run",
     "typecheck": "next typegen && tsc --noEmit",

@@ -1,3 +1,4 @@
+import { appUrl } from './urls';
 import { test, expect } from '@playwright/test';
 import { mkdir, readFile } from 'node:fs/promises';
 import { PDFDocument, PDFName, PDFRawStream, decodePDFRawStream } from 'pdf-lib';
@@ -5,7 +6,7 @@ import { PDFDocument, PDFName, PDFRawStream, decodePDFRawStream } from 'pdf-lib'
 test('descarga PNG y PDF con geometría física verificable', async ({ page }) => {
   // Two binary downloads and disk writes can exceed 30s under concurrent CI load.
   test.setTimeout(60_000);
-  await page.goto('/exportar/');
+  await page.goto(appUrl('/exportar/'));
   await expect(page.getByRole('button', { name: 'Descargar PNG', exact: true })).toBeEnabled();
   await mkdir('output/pdf', { recursive: true });
   const pngDownload = page.waitForEvent('download');
@@ -42,7 +43,7 @@ test('espera la fuente y bloquea la exportación ante error de imagen', async ({
   let release!: () => void;
   const gate = new Promise<void>(resolve => { release = resolve; });
   await page.route('**/fonts/NotoSans-Regular.ttf', async route => { await gate; await route.continue(); });
-  await page.goto('/exportar/');
+  await page.goto(appUrl('/exportar/'));
   await expect(page.getByRole('button', { name: 'Descargar PNG', exact: true })).toBeDisabled();
   release();
   await expect(page.getByRole('button', { name: 'Descargar PNG', exact: true })).toBeEnabled();

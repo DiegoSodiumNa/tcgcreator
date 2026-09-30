@@ -1,3 +1,4 @@
+import { appUrl } from './urls';
 import { test, expect, type Page } from '@playwright/test';
 import { createExample } from './helpers';
 import type { StoredGame } from '../../src/storage/repository';
@@ -30,7 +31,7 @@ async function exampleSettings(page: Page) {
 }
 
 test('configura desde cero los seis catálogos y los cuatro formatos de atributo', async ({ page }) => {
-  await page.goto('/'); await page.getByLabel('Nombre del nuevo juego').fill('Mundo nuevo');
+  await page.goto(appUrl('/')); await page.getByLabel('Nombre del nuevo juego').fill('Mundo nuevo');
   await page.getByRole('button', { name: 'Crear juego', exact: true }).click();
   await page.getByRole('link', { name: 'Renombrar', exact: true }).click();
   await catalog(page, 'Supertipos'); await start(page, 'supertipo', 'Legendario'); await save(page);
@@ -177,7 +178,7 @@ test('guarda y reutiliza símbolos sin borrarlos al eliminar su recurso', async 
 test('una revisión pendiente no sobrescribe un cambio guardado desde otra pestaña', async ({ page, context }) => {
   await exampleSettings(page); await catalog(page, 'Tipos'); await page.getByRole('link', { name: 'Editar Unidad', exact: true }).click();
   const initial = await readGame(page);
-  const second = await context.newPage(); await second.goto(`/configuracion/?game=${initial.id}`);
+  const second = await context.newPage(); await second.goto(appUrl(`/configuracion/?game=${initial.id}`));
   await expect(second.getByLabel('Nombre del juego', { exact: true })).toBeVisible();
   await page.getByRole('checkbox', { name: 'Activado', exact: true }).check();
   await page.getByRole('button', { name: 'Guardar concepto' }).click();

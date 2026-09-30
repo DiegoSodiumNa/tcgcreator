@@ -1,3 +1,4 @@
+import { appUrl } from './urls';
 import { test, expect, type Page } from '@playwright/test';
 import { createExample, openCentinela, readGame } from './helpers';
 
@@ -91,7 +92,7 @@ test('duplica imágenes por referencia y elimina solo la carta tras confirmar', 
 });
 
 test('un juego sin tipos orienta a configurarlos antes de crear cartas', async ({ page }) => {
-  await page.goto('/'); await page.getByLabel('Nombre del nuevo juego').fill('Vacío');
+  await page.goto(appUrl('/')); await page.getByLabel('Nombre del nuevo juego').fill('Vacío');
   await page.getByRole('button', { name: 'Crear juego', exact: true }).click(); await page.getByRole('link', { name: 'Abrir juego', exact: true }).click();
   await expect(page.getByRole('button', { name: 'Crear carta', exact: true })).toBeDisabled();
   await page.getByRole('link', { name: 'Configurar tipos', exact: true }).click();

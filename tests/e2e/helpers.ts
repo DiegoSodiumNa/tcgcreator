@@ -1,3 +1,4 @@
+import { appUrl } from './urls';
 ﻿import { expect, type Page } from '@playwright/test';
 import type { StoredGame } from '../../src/storage/repository';
 export async function readGame(page: Page): Promise<StoredGame> {
@@ -13,7 +14,7 @@ export async function readGame(page: Page): Promise<StoredGame> {
   }));
 }
 export async function createExample(page: Page) {
-  await page.goto('/');
+  await page.goto(appUrl('/'));
   await page.getByRole('button', { name: 'Crear juego de ejemplo', exact: true }).click();
   await expect(page.getByRole('link', { name: 'Abrir juego' })).toBeVisible();
   await page.getByRole('link', { name: 'Abrir juego' }).click();

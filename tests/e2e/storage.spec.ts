@@ -1,3 +1,4 @@
+import { appUrl } from './urls';
 import { test, expect } from '@playwright/test';
 import { createExample, openCentinela, readGame } from './helpers';
 import type { Page } from '@playwright/test';
@@ -13,7 +14,7 @@ async function storedIllustration(page: Page) {
 const png = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jV9sAAAAASUVORK5CYII=', 'base64');
 
 test('biblioteca vacía, creación, renombrado, reglamento y eliminación confirmada', async ({ page }) => {
-  await page.goto('/');
+  await page.goto(appUrl('/'));
   await expect(page.getByRole('heading', { name: 'Aún no tienes juegos' })).toBeVisible();
   await page.getByLabel('Nombre del nuevo juego').fill('Mi juego');
   await page.getByRole('button', { name: 'Crear juego', exact: true }).click();
@@ -128,7 +129,7 @@ test('dos pestañas no sobrescriben cambios y recargar exige descartar', async (
 
 test('almacenamiento bloqueado muestra un error en vez de una biblioteca vacía', async ({ page }) => {
   await page.addInitScript(() => { IDBFactory.prototype.open = () => { throw new DOMException('Denied', 'SecurityError'); }; });
-  await page.goto('/');
+  await page.goto(appUrl('/'));
   await expect(page.getByRole('main').getByRole('alert')).toContainText('No se puede abrir el almacenamiento');
   await expect(page.getByRole('heading', { name: 'Aún no tienes juegos' })).toHaveCount(0);
 });
@@ -154,7 +155,7 @@ test('conserva juego e imágenes tras reiniciar el navegador con el mismo perfil
   let editorUrl = '';
   try {
     const page = await browser.newPage();
-    await page.goto('http://127.0.0.1:4173/');
+    await page.goto((process.env.PLAYWRIGHT_BASE_URL ?? 'http://127.0.0.1:4173') + appUrl('/'));
     await page.getByRole('button', { name: 'Crear juego de ejemplo', exact: true }).click();
     await page.getByRole('link', { name: 'Abrir juego' }).click();
     await openCentinela(page);

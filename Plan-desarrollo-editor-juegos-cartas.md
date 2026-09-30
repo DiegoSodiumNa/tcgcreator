@@ -1,8 +1,8 @@
 # Plan de desarrollo — Editor web individual de juegos y cartas
 
-**Revisión:** 6 · 30 de septiembre de 2026
+**Revisión:** 7 · 30 de septiembre de 2026
 
-**Estado:** pasos 01, 02 y 04–09 completos; paso 03 implementado y verificado digitalmente, pendiente de medición física; pasos 10–12 pendientes.
+**Estado:** pasos 01, 02 y 04–10 completos; pasos 03 y 11 con verificación digital y medición física pendiente; paso 12 preparado, pendiente de confirmar publicación.
 
 **Desarrollo:** Diego, con apoyo de asistentes de programación con IA.  
 **Disponibilidad:** hasta 5 horas por semana.  
@@ -362,10 +362,12 @@ Cada paso debe terminar con una demostración pequeña. Las horas son una estima
 
 **Estimación:** 6–10 horas. **Dependencias:** pasos 04, 08 y 09.
 
-- [ ] Añadir edición del reglamento con párrafos y saltos de línea.
-- [ ] Incluir su contenido en guardado y exportación del juego.
-- [ ] Generar PDF con ajuste de líneas, márgenes, fuente incorporada y paginación.
-- [ ] Generar el listado de la tanda actual: nombre, cantidad y total.
+- [x] Añadir edición del reglamento con párrafos y saltos de línea.
+- [x] Incluir su contenido en guardado y exportación del juego.
+- [x] Generar PDF con ajuste de líneas, márgenes, fuente incorporada y paginación.
+- [x] Generar el listado de la tanda actual: nombre, cantidad y total.
+
+**Implementado el 30 de septiembre de 2026:** PDF del reglamento visible sin guardado implícito y listado de la selección actual. Carta/A4, fuente local incorporada, márgenes de 20 mm, ajuste de líneas, paginación, encabezados y totales. Contrato v1 sin cambios. Registro en `docs/verificacion-paso-10.md`.
 
 **Entregable:** dos exportaciones documentales sencillas.
 
@@ -375,12 +377,14 @@ Cada paso debe terminar con una demostración pequeña. Las horas son una estima
 
 **Estimación:** 8–12 horas. **Dependencias:** pasos 08–10.
 
-- [ ] Probar los doce ejemplos y un juego de 200 cartas.
-- [ ] Verificar clasificación, valores, desbordamiento e importación dañada.
-- [ ] Revisar persistencia al recargar y el comportamiento ante errores de almacenamiento.
-- [ ] Comparar imágenes de referencia de las dos plantillas.
+- [x] Probar los doce ejemplos y un juego de 200 cartas.
+- [x] Verificar clasificación, valores, desbordamiento e importación dañada.
+- [x] Revisar persistencia al recargar y el comportamiento ante errores de almacenamiento.
+- [x] Comparar imágenes de referencia de las dos plantillas.
 - [ ] Imprimir y recortar una hoja de prueba en cada formato disponible para el usuario.
-- [ ] Registrar tiempos de apertura y exportación en un equipo de referencia.
+- [x] Registrar tiempos de apertura y exportación en un equipo de referencia.
+
+**Verificación digital del 30 de septiembre de 2026:** referencias A/B revisadas, recorrido automatizado y tres mediciones de 200 diseños. Registro en `docs/verificacion-paso-11.md`. La impresión, medición y recorte permanecen pendientes; el usuario autorizó publicar el prototipo con este pendiente explícito.
 
 **Entregable:** registro breve de pruebas y correcciones.
 
@@ -390,11 +394,13 @@ Cada paso debe terminar con una demostración pequeña. Las horas son una estima
 
 **Estimación:** 6–10 horas. **Dependencias:** paso 11.
 
-- [ ] Elegir alojamiento estático gratuito compatible con el uso previsto.
-- [ ] Configurar la compilación, rutas y carga de fuentes e imágenes incorporadas.
+- [x] Elegir alojamiento estático gratuito compatible con el uso previsto.
+- [x] Configurar la compilación, rutas y carga de fuentes e imágenes incorporadas.
 - [ ] Verificar creación, guardado, importación y descargas desde la dirección final.
-- [ ] Publicar una guía breve: crear juego, recuperar imágenes, imprimir y hacer respaldos.
-- [ ] Mantener una dirección estable: cambiar de dominio cambia el almacenamiento local accesible.
+- [x] Preparar una guía breve en la aplicación: crear juego, recuperar imágenes, imprimir y hacer respaldos.
+- [x] Fijar una dirección estable: `https://diegosodiumna.github.io/tcgcreator/`; cambiar de origen cambia el almacenamiento local accesible.
+
+**Preparado:** GitHub Pages desde repositorio público, flujo Actions con comprobaciones en raíz y subdirectorio, y guía `/guia/`. Procedimiento y recuperación en `docs/publicacion.md`. Publicación y comprobación remota todavía pendientes.
 
 **Entregable:** editor web disponible y guía de uso.
 
@@ -474,4 +480,4 @@ Consultadas para fundamentar la arquitectura; los comportamientos y las estimaci
 - [MDN — Cuotas y eliminación del almacenamiento del navegador](https://developer.mozilla.org/en-US/docs/Web/API/Storage_API/Storage_quotas_and_eviction_criteria).
 - [GitHub Pages — Alojamiento estático](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages).
 
-Este documento sustituye el plan anterior de 14 pasos. Los pasos 01, 02 y 04–09 están completos; el paso 03 tiene implementación y verificación digital completas, con medición física pendiente. Los pasos 10–12 siguen pendientes.
+Este documento sustituye el plan anterior de 14 pasos. Los pasos 01, 02 y 04–10 están completos. Los pasos 03 y 11 tienen verificación digital con aceptación física pendiente. El paso 12 está preparado; su publicación se confirma por separado.

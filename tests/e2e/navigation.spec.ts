@@ -1,3 +1,4 @@
+import { appUrl } from './urls';
 import { test, expect } from '@playwright/test';
 import { createExample, openCentinela } from './helpers';
 
@@ -21,14 +22,14 @@ test('recorrido, guardado y recarga sobre los archivos estáticos', async ({ pag
 
 test('acceso directo, búsqueda, filtros y cantidades', async ({ page }) => {
   const game = await createExample(page);
-  await page.goto(`/cartas/?game=${game}`);
+  await page.goto(appUrl(`/cartas/?game=${game}`));
   await page.getByLabel('Buscar cartas').fill('egida');
   await expect(page.getByRole('heading', { name: 'Égida del Río' })).toBeVisible();
   await page.getByLabel('Filtrar por tipo').selectOption({ label: 'Unidad' });
   await expect(page.getByRole('heading', { name: 'No hay cartas que coincidan' })).toBeVisible();
   await page.getByRole('button', { name: 'Limpiar filtros' }).click();
   await expect(page.locator('.card-tile')).toHaveCount(12);
-  await page.goto(`/exportar/?game=${game}`);
+  await page.goto(appUrl(`/exportar/?game=${game}`));
   await page.getByLabel('Guardián de la Forja', { exact: true }).check();
   await page.getByLabel('Cantidad de Guardián de la Forja').fill('3');
   await expect(page.getByRole('status').filter({ hasText: '1 diseños · 3 copias · 1 hojas' })).toBeVisible();
@@ -36,11 +37,11 @@ test('acceso directo, búsqueda, filtros y cantidades', async ({ page }) => {
 
 test('identificadores desconocidos tienen una salida navegable', async ({ page }) => {
   const game = await createExample(page);
-  await page.goto(`/editor/?game=${game}&card=unknown`);
+  await page.goto(appUrl(`/editor/?game=${game}&card=unknown`));
   await expect(page.getByRole('heading', { name: 'Carta no encontrada' })).toBeVisible();
   await page.getByRole('link', { name: 'Volver a Cartas' }).click();
   await expect(page.getByRole('heading', { name: 'Tu colección de cartas' })).toBeVisible();
-  await page.goto('/cartas/?game=unknown');
+  await page.goto(appUrl('/cartas/?game=unknown'));
   await expect(page.getByRole('heading', { name: 'Juego no encontrado' })).toBeVisible();
 });
 

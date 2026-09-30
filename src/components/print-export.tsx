@@ -7,6 +7,7 @@ import { composeCard } from '@/rendering/card-scene';
 import { loadCardFont, loadCardImages } from '@/rendering/card-assets';
 import type { RenderIssue } from '@/rendering/composition';
 import { renderCardPng } from '@/export/card-png';
+import { createSelectionListPdf } from '@/export/documents-pdf';
 import { createCardsPdf } from '@/export/cards-pdf';
 import { DEFAULT_PRINT, countSelection, cutLines, pageCards, printLayout, type PrintSettings, type Selection } from '@/export/print-layout';
 import { downloadBytes } from '@/export/download';
@@ -59,19 +60,21 @@ export default function PrintExport() {
   useEffect(() => () => controller.current?.abort(), []);
   const selection = useMemo<Selection>(() => game.cards.filter(c => Number(quantities[c.id]) > 0 || Object.hasOwn(quantities, c.id)).map(c => ({ cardId: c.id, quantity: Number(quantities[c.id]) })), [game.cards, quantities]);
   let validation = '', total = 0, pages = 0, extraPage = false;
+  let validSelection = false;
+  try { validSelection = countSelection(selection) > 0; } catch { /* Explained by validation below. */ }
   try { total = countSelection(selection); const layout = printLayout(settings); pages = Math.ceil(total / layout.capacity); extraPage = settings.calibration || layout.top < 4; }
   catch (error) { validation = error instanceof Error ? error.message : 'Revisa la selección.'; }
   const currentPage = Math.min(page, Math.max(0, pages - 1));
-  async function generate(format: 'png' | 'pdf') {
-    if (busy) return;
+  async function generate(format: 'png' | 'pdf' | 'list') {
+    if (busy || controller.current) return;
     const abort = new AbortController(); controller.current = abort;
-    setBusy(true); setIssues([]); setMessage('Comprobando cartas…');
+    setBusy(true); setIssues([]); setMessage(format === 'list' ? 'Preparando listado…' : 'Comprobando cartas…');
     try {
       const snapshot = parseGameFile(structuredClone(game));
       const chosen = format === 'png' ? [{ cardId: pngId, quantity: 1 }] : structuredClone(selection);
       if (!chosen.length) throw new Error('Selecciona al menos una carta.');
       const font = await loadCardFont(abort.signal); const problems: RenderIssue[] = [];
-      for (const [index, entry] of chosen.entries()) {
+      for (const [index, entry] of (format === 'list' ? [] : chosen).entries()) {
         abort.signal.throwIfAborted(); setMessage(`Comprobando carta ${index + 1} de ${chosen.length}…`);
         const card = snapshot.cards.find(c => c.id === entry.cardId);
         if (!card) throw new Error('La carta seleccionada ya no existe.');
@@ -86,12 +89,12 @@ export default function PrintExport() {
         if (assets.issues.length) throw new Error(assets.issues.map(issue => issue.message).join('\n'));
         return renderCardPng(composeCard(snapshot, card), assets.images);
       };
-      const bytes = format === 'png' ? await render(pngId) : await createCardsPdf(chosen, { ...settings }, font, render, setMessage, abort.signal);
+      const bytes = format === 'list' ? await createSelectionListPdf(snapshot.game.name, snapshot.cards, chosen, settings.paper, font, abort.signal) : format === 'png' ? await render(pngId) : await createCardsPdf(chosen, { ...settings }, font, render, setMessage, abort.signal);
       abort.signal.throwIfAborted();
       const current = await getRepository().read(record.id);
       if (!current || current.revision !== record.revision) throw new Error('Otra pestaña cambió el juego. Recarga la versión guardada antes de exportar.');
-      downloadBytes(bytes, format === 'png' ? 'image/png' : 'application/pdf', format === 'png' ? 'carta.png' : 'tanda-cartas.pdf');
-      setMessage('Descarga iniciada. Para el PDF, imprime al 100 % sin ajustar a página.');
+      downloadBytes(bytes, format === 'png' ? 'image/png' : 'application/pdf', format === 'png' ? 'carta.png' : format === 'list' ? 'listado-tanda.pdf' : 'tanda-cartas.pdf');
+      setMessage(format === 'list' ? 'Descarga del listado iniciada.' : 'Descarga iniciada. Para el PDF, imprime al 100 % sin ajustar a página.');
     } catch (error) { setMessage(abort.signal.aborted ? 'Exportación cancelada. La selección se conserva.' : error instanceof Error ? error.message : 'No se pudo exportar.'); }
     finally { controller.current = null; setBusy(false); }
   }
@@ -102,6 +105,7 @@ export default function PrintExport() {
     <label className="check-label"><input type="checkbox" checked={settings.calibration} onChange={event => setSettings({ ...settings, calibration: event.target.checked })} />Añadir hoja de calibración de 50 mm</label></fieldset>
     <p role="status">{selection.length} diseños · {total} copias · {pages + (total && extraPage ? 1 : 0)} hojas</p>{validation && <p role="alert">{validation}</p>}
     <Button disabled={busy || !total || !!validation} onClick={() => void generate('pdf')}>Descargar PDF de la selección</Button>
+    <Button variant="outline" disabled={busy || !validSelection} onClick={() => void generate('list')}>Descargar listado PDF</Button>
     <fieldset disabled={busy}><h2>PNG individual</h2><label>Carta para PNG<select value={pngId} onChange={event => setPngId(event.target.value)}>{game.cards.map(card => <option key={card.id} value={card.id}>{card.name}</option>)}</select></label><Button variant="outline" disabled={!pngId || busy} onClick={() => void generate('png')}>Descargar PNG individual</Button></fieldset>
     <p className="muted">La selección es temporal. El PDF usa las medidas físicas exactas; el PNG mide 744 × 1039 px.</p></section>
     <section className="panel"><h2>Revisar hojas</h2>{total > 0 && !validation ? <><div className="action-row"><Button variant="outline" disabled={currentPage === 0} onClick={() => setPage(currentPage - 1)}>Anterior</Button><span>Hoja {currentPage + 1} de {pages}</span><Button variant="outline" disabled={currentPage + 1 >= pages} onClick={() => setPage(currentPage + 1)}>Siguiente</Button></div><SheetPreview game={game} selection={selection} settings={settings} page={currentPage} />{extraPage && <p>Se añadirá una hoja de {settings.calibration ? 'calibración e instrucciones' : 'instrucciones'}.</p>}</> : <p>Selecciona cartas y revisa los ajustes para ver la distribución.</p>}</section></div>
