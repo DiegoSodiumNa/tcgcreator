@@ -1,7 +1,9 @@
 # Plan de desarrollo — Editor web individual de juegos y cartas
 
-**Revisión:** 2 · 29 de septiembre de 2026  
-**Estado:** pasos 01 y 02 completos; paso 03 implementado y verificado digitalmente, pendiente de medición física; pasos 04–12 pendientes.  
+**Revisión:** 6 · 30 de septiembre de 2026
+
+**Estado:** pasos 01, 02 y 04–09 completos; paso 03 implementado y verificado digitalmente, pendiente de medición física; pasos 10–12 pendientes.
+
 **Desarrollo:** Diego, con apoyo de asistentes de programación con IA.  
 **Disponibilidad:** hasta 5 horas por semana.  
 **Presupuesto del prototipo:** servicios gratuitos.
@@ -261,11 +263,13 @@ Cada paso debe terminar con una demostración pequeña. Las horas son una estima
 
 **Estimación:** 10–16 horas. **Dependencias:** paso 02.
 
-- [ ] Crear IndexedDB con Dexie y versión de su esquema.
-- [ ] Implementar crear, listar, abrir, renombrar y eliminar juegos.
-- [ ] Guardar recursos gráficos como blobs y obtenerlos para la previsualización.
-- [ ] Mostrar guardado correcto, cambios pendientes y errores de espacio o escritura.
-- [ ] Detectar revisión obsoleta si otra pestaña cambió el mismo documento.
+- [x] Crear IndexedDB con Dexie y versión de su esquema.
+- [x] Implementar crear, listar, abrir, renombrar y eliminar juegos.
+- [x] Guardar recursos gráficos como blobs y obtenerlos para la previsualización.
+- [x] Mostrar guardado correcto, cambios pendientes y errores de espacio o escritura.
+- [x] Detectar revisión obsoleta si otra pestaña cambió el mismo documento.
+
+**Implementado el 30 de septiembre de 2026:** biblioteca de juegos con creación vacía o copia explícita del ejemplo, repositorio Dexie versionado, documentos y blobs en transacciones, guardado de identidad, reglamento y contenido básico de cartas, protección de borradores y control de revisión por juego entre pestañas. Verificación: TypeScript, 43 pruebas Vitest, contrato JSON v1 y 16 pruebas Playwright sobre la exportación estática; incluye cierre y reapertura de Chromium con el mismo perfil. Registro en `docs/verificacion-paso-04.md`.
 
 **Entregable:** persistencia local funcional.
 
@@ -275,11 +279,13 @@ Cada paso debe terminar con una demostración pequeña. Las horas son una estima
 
 **Estimación:** 8–12 horas. **Dependencias:** pasos 01 y 04.
 
-- [ ] Crear formularios de supertipos, tipos y subtipos asociados.
-- [ ] Crear atributos y asignarlos a tipos.
-- [ ] Implementar formatos de valores y símbolos opcionales.
-- [ ] Crear palabras clave y habilidades parametrizadas.
-- [ ] Validar nombres, referencias y dependencias antes de retirar conceptos.
+- [x] Crear formularios de supertipos, tipos y subtipos asociados.
+- [x] Crear atributos y asignarlos a tipos.
+- [x] Implementar formatos de valores y símbolos opcionales.
+- [x] Crear palabras clave y habilidades parametrizadas.
+- [x] Validar nombres, referencias y dependencias antes de retirar conceptos.
+
+**Implementado el 30 de septiembre de 2026:** configurador de seis catálogos con React Hook Form y validación Zod compartida con el dominio; identificadores estables, cuatro formatos de atributos, símbolos locales reutilizables y habilidades parametrizadas. Las eliminaciones utilizadas y los cambios incompatibles quedan bloqueados con sus dependencias. Añadir o retirar atributos de tipos requiere revisar los valores y espacios afectados y confirmar una transacción con control de revisión. Las habilidades utilizadas permanecen en consulta hasta la edición compartida del paso 06. Verificación: TypeScript, 71 pruebas Vitest, contrato JSON v1 y 24 pruebas Playwright sobre el sitio estático. Registro en `docs/verificacion-paso-05.md`.
 
 **Entregable:** configurador del juego.
 
@@ -289,12 +295,14 @@ Cada paso debe terminar con una demostración pequeña. Las horas son una estima
 
 **Estimación:** 10–16 horas. **Dependencias:** paso 05.
 
-- [ ] Implementar listado, búsqueda, filtros, creación, duplicación y eliminación.
-- [ ] Construir el formulario desde los tipos seleccionados.
-- [ ] Combinar atributos sin duplicados y filtrar subtipos válidos.
-- [ ] Incorporar texto libre, selección de palabras clave y valores de parámetros.
-- [ ] Mostrar la previsualización y guardar con validación.
-- [ ] Implementar la revisión de cartas afectadas antes de cambiar una habilidad compartida.
+- [x] Implementar listado, búsqueda, filtros, creación, duplicación y eliminación.
+- [x] Construir el formulario desde los tipos seleccionados.
+- [x] Combinar atributos sin duplicados y filtrar subtipos válidos.
+- [x] Incorporar texto libre, selección de palabras clave y valores de parámetros.
+- [x] Mostrar la previsualización y guardar con validación.
+- [x] Implementar la revisión de cartas afectadas antes de cambiar una habilidad compartida.
+
+**Implementado el 30 de septiembre de 2026:** editor de contenido con creación, duplicación por referencia de imágenes y eliminación confirmada; clasificación y atributos de cuatro formatos, revisión al retirar tipos, texto libre y usos ordenados de habilidades con parámetros y recordatorios. La revisión de una habilidad compartida muestra antes/después y recoge valores por uso para parámetros nuevos o con formato cambiado; confirmar actualiza definición y cartas en una transacción con control de revisión. Se conserva el contrato v1 y el diseño de las cartas existentes. Verificación: TypeScript, 92 pruebas Vitest, contrato JSON v1, compilación estática y 32 pruebas Playwright. Registro en `docs/verificacion-paso-06.md`.
 
 **Entregable:** editor de contenido utilizable.
 
@@ -304,12 +312,14 @@ Cada paso debe terminar con una demostración pequeña. Las horas son una estima
 
 **Estimación:** 10–16 horas. **Dependencias:** pasos 03 y 06.
 
-- [ ] Terminar la plantilla A e implementar la B con mayor zona de texto.
-- [ ] Añadir cambio de colores y sustitución de ilustración y símbolos.
-- [ ] Añadir selección de atributo por espacio y ajuste del recorte de ilustración.
-- [ ] Incorporar atributos sobrantes al texto, sin duplicarlos.
-- [ ] Detectar texto fuera del área y referencias gráficas faltantes.
-- [ ] Mantener una sola función de composición para pantalla y exportación.
+- [x] Terminar la plantilla A e implementar la B con mayor zona de texto.
+- [x] Añadir cambio de colores y sustitución de ilustración y símbolos.
+- [x] Añadir selección de atributo por espacio y ajuste del recorte de ilustración.
+- [x] Incorporar atributos sobrantes al texto, sin duplicarlos.
+- [x] Detectar texto fuera del área y referencias gráficas faltantes.
+- [x] Mantener una sola función de composición para pantalla y exportación.
+
+**Implementado el 30 de septiembre de 2026:** escena Konva común A/B para vista previa y archivos, tres colores, cuatro espacios, símbolos compartidos, selección de ilustraciones locales y recorte normalizado. Los problemas visuales permiten guardar contenido válido pero bloquean la exportación. Se conserva el contrato v1. Registro en `docs/verificacion-paso-07.md`.
 
 **Entregable:** personalización visual mediante plantillas.
 
@@ -319,11 +329,13 @@ Cada paso debe terminar con una demostración pequeña. Las horas son una estima
 
 **Estimación:** 6–10 horas. **Dependencias:** paso 07.
 
-- [ ] Generar JSON versionado con datos y configuración, sin bytes de imágenes.
-- [ ] Validar formato, versión, relaciones y tipos de valores antes de escribir.
-- [ ] Importar como copia independiente mediante una operación local completa.
-- [ ] Mostrar imágenes pendientes e implementar su reasociación manual.
-- [ ] Mostrar un resumen de importación y mensajes útiles ante archivos inválidos.
+- [x] Generar JSON versionado con datos y configuración, sin bytes de imágenes.
+- [x] Validar formato, versión, relaciones y tipos de valores antes de escribir.
+- [x] Importar como copia independiente mediante una operación local completa.
+- [x] Mostrar imágenes pendientes e implementar su reasociación manual.
+- [x] Mostrar un resumen de importación y mensajes útiles ante archivos inválidos.
+
+**Implementado el 30 de septiembre de 2026:** respaldo desde Mis juegos e importación revisada de JSON v1 de hasta 20 MiB. Copias con identificadores nuevos, relaciones remapeadas y creación transaccional. Panel de imágenes pendientes en Cartas y Exportar / imprimir, reasociación por referencia y confirmación de huellas diferentes o retirada de usos. Registro en `docs/verificacion-paso-08.md`.
 
 **Entregable:** archivo de respaldo y recuperación de juegos.
 
@@ -333,12 +345,14 @@ Cada paso debe terminar con una demostración pequeña. Las horas son una estima
 
 **Estimación:** 10–16 horas. **Dependencias:** paso 07.
 
-- [ ] Añadir selección temporal y cantidades por carta.
-- [ ] Mostrar total de copias y previsualización paginada.
-- [ ] Calcular posiciones en Carta y A4 y añadir marcas de corte.
-- [ ] Descargar PNG individual y PDF de la selección.
-- [ ] Reutilizar diseños repetidos, mostrar progreso y liberar recursos al terminar.
-- [ ] Señalar cartas incompletas antes de generar el archivo.
+- [x] Añadir selección temporal y cantidades por carta.
+- [x] Mostrar total de copias y previsualización paginada.
+- [x] Calcular posiciones en Carta y A4 y añadir marcas de corte.
+- [x] Descargar PNG individual y PDF de la selección.
+- [x] Reutilizar diseños repetidos, mostrar progreso y liberar recursos al terminar.
+- [x] Señalar cartas incompletas antes de generar el archivo.
+
+**Implementado el 30 de septiembre de 2026:** selección temporal, cantidades, distribución común en milímetros para vista previa y PDF, Carta/A4 con marcas exteriores, PNG de 744 × 1039 px y frentes PDF de 63 × 88 mm. Prevalidación de toda la tanda, reutilización de diseños, progreso, cancelación y detección de cambios de otra pestaña antes de descargar. Calibración opcional y prueba de humo con 200 diseños. Registro en `docs/verificacion-paso-09.md`. La medición física sigue pendiente.
 
 **Entregable:** exportador para pruebas físicas.
 
@@ -460,4 +474,4 @@ Consultadas para fundamentar la arquitectura; los comportamientos y las estimaci
 - [MDN — Cuotas y eliminación del almacenamiento del navegador](https://developer.mozilla.org/en-US/docs/Web/API/Storage_API/Storage_quotas_and_eviction_criteria).
 - [GitHub Pages — Alojamiento estático](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages).
 
-Este documento sustituye el plan anterior de 14 pasos. Los pasos 01 y 02 están completos; el paso 03 tiene implementación y verificación digital completas, con medición física pendiente. Los pasos 04–12 siguen pendientes.
+Este documento sustituye el plan anterior de 14 pasos. Los pasos 01, 02 y 04–09 están completos; el paso 03 tiene implementación y verificación digital completas, con medición física pendiente. Los pasos 10–12 siguen pendientes.

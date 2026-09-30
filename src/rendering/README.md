@@ -1,7 +1,7 @@
 # Renderizado
 
-`card-scene.tsx` compone la plantilla A con coordenadas de exportación de 744 × 1039 píxeles. React Konva se carga exclusivamente en el cliente. La vista previa reduce la escena por CSS; su captura conserva la resolución nativa, independientemente del ancho de pantalla y del devicePixelRatio.
+`composition.ts` define la distribución A/B y produce texto medido y diagnósticos por zona. `card-scene.tsx` crea los mismos nodos Konva para pantalla y exportación a 744 × 1039 px. Se carga exclusivamente en cliente; el tamaño de pantalla no cambia la resolución del PNG.
 
-`assets.ts` espera la fuente TTF y la ilustración SVG local decodificada antes de componer. `template-a.ts` prepara clasificación, cuatro espacios y texto (incluido el quinto atributo), y ajusta líneas sin recortar contenido. `measurements.ts` separa píxeles de puntos PDF y milímetros.
+`card-assets.ts` espera Noto Sans y decodifica blobs pendientes o guardados, informando referencias faltantes. `assets.ts` permanece para la demostración fija. `template-a.ts` prepara el contenido común de ambas plantillas y ajusta líneas; `measurements.ts` separa píxeles, puntos y milímetros.
 
-La prueba usa una carta fija con recursos incorporados; no implementa todavía selección general de plantillas, recorte editable, símbolos personalizados ni resolución de blobs de IndexedDB. Las miniaturas CSS del listado y la vista de contenido del editor siguen siendo independientes de la prueba imprimible.
+El recorte guardado es un rectángulo normalizado; se aplica cover centrado dentro de él, sin deformar. B omite la zona de ilustración cuando no hay referencia. Los símbolos de atributos asignados se ajustan sin deformación. Una referencia necesaria sin bytes bloquea la exportación; una carta sin ilustración es válida. Los desbordamientos se señalan en lugar de recortarlos silenciosamente.

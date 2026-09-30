@@ -1,6 +1,6 @@
 # Editor de juegos y cartas
 
-Pasos 01 y 02 completos; paso 03 implementado digitalmente, pendiente de medición física. Contrato de datos v1, doce cartas, aplicación estática y primera plantilla imprimible.
+Pasos 01, 02 y 04–09 implementados; paso 03 verificado digitalmente, pendiente de medición física. Aplicación estática con juegos e imágenes en IndexedDB, dos plantillas, respaldo JSON, recuperación de imágenes y exportación PNG/PDF de tandas.
 
 ## Arranque
 
@@ -9,18 +9,66 @@ npm ci
 npm run dev
 ```
 
-Abrir `http://localhost:3000`. La aplicación incluye Mis juegos, Configuración, Cartas, Editor, Reglamento y Exportar/imprimir. Usa `?game=game-forja` y `&card=card-05` para abrir ejemplos directamente. Un identificador desconocido muestra un mensaje y un enlace de regreso.
+Abrir `http://localhost:3000`. La biblioteca empieza vacía. Usa **Crear juego** para iniciar uno vacío o **Crear juego de ejemplo** para obtener doce cartas con imágenes locales. Cada copia recibe identificadores nuevos; los enlaces incluyen `?game=…` y `&card=…`. Un identificador desconocido muestra un mensaje y un enlace de regreso.
 
-El listado admite búsqueda y filtro por tipo. El editor y el reglamento permiten probar cambios temporales; al salir o recargar se descartan. La selección de impresión también es temporal. No hay persistencia. Las miniaturas y la vista de contenido del editor no representan una plantilla de impresión.
+El listado admite búsqueda, filtro por tipo, creación, duplicación y eliminación confirmada de cartas. Puedes renombrar el juego, editar su descripción y reglamento, y guardar el contenido e ilustración de sus cartas. El guardado es explícito y muestra fecha y resultado. Las imágenes PNG/JPEG/WebP se guardan como blobs junto al documento; límite inicial: 20 MiB y 25 millones de píxeles por archivo.
+
+Salir de un formulario con cambios ofrece guardar, descartar o permanecer. Cerrar o recargar activa el aviso nativo del navegador. Si falla una escritura, el borrador permanece abierto. Si otra pestaña guardó el mismo juego, se bloquea la sobrescritura y se ofrece recargar con confirmación de descarte.
+
+Los datos pertenecen al navegador, perfil y origen del sitio. `localhost` y `127.0.0.1`, o puertos diferentes, tienen bibliotecas independientes. Borrar los datos del sitio elimina los juegos. Usa **Exportar juego** en Mis juegos y conserva las imágenes originales por separado; la fecha indica cuándo se inició la última descarga del respaldo.
+
+La selección de impresión es temporal. La vista previa del editor y las exportaciones utilizan la misma composición; las miniaturas del listado son resúmenes. Puedes eliminar un juego desde la biblioteca tras confirmar; se retiran también sus blobs.
+
+## Crear y editar cartas
+
+Desde **Cartas → Crear carta**, escribe el nombre y selecciona al menos un tipo. Si el juego todavía no tiene tipos, el listado ofrece ir a configurarlos. El editor combina sus atributos sin duplicados, usa controles de texto, número, sí/no y selección y muestra únicamente los subtipos compatibles. Los supertipos se eligen de forma independiente.
+
+Al retirar un tipo se revisan los subtipos, valores y espacios visuales que dejarán de aplicar. Cancelar conserva el borrador; confirmar prepara el cambio, que se escribe al guardar la carta. Los atributos aportados por otro tipo mantienen sus valores.
+
+Añade texto libre y habilidades, completa sus parámetros y elige si mostrar cada recordatorio. Puedes repetir una habilidad y ordenar o quitar sus usos. La vista de contenido refleja los cambios antes de guardar: por ejemplo, `Escudo {amount}` con valor 3 aparece como «Escudo 3». Los números vacíos, no finitos o fuera de los límites del atributo bloquean el guardado.
+
+**Duplicar** crea otro identificador y conserva el contenido y diseño, compartiendo las referencias de imágenes sin copiar sus bytes. **Eliminar** pide confirmación y conserva el catálogo de imágenes. Las nuevas cartas empiezan con plantilla A, cuatro espacios vacíos y sin ilustración.
+
+En **Diseño de la carta**, elige A (ilustración grande) o B (más texto), tres colores y hasta cuatro atributos sin repetir. Los sobrantes aparecen en el texto antes de las habilidades. Los símbolos de los espacios pertenecen a la definición compartida del atributo. Puedes cargar o reutilizar una ilustración, retirarla y ajustar su recorte en porcentajes; reduce ancho/alto antes de desplazarla. Cambiar de plantilla conserva todos los datos.
+
+Los desbordamientos y recursos faltantes se señalan en la vista previa y bloquean la exportación, pero permiten guardar el contenido válido para corregirlo después. No tener ilustración es válido.
+
+## Respaldar y recuperar
+
+**Exportar juego** descarga los datos guardados como JSON v1, sin bytes de imágenes. **Importar archivo JSON** admite hasta 20 MiB, valida el archivo completo y muestra un resumen antes de crear una copia con identificadores nuevos; nunca reemplaza otro juego.
+
+En **Cartas** y **Exportar / imprimir**, el panel **Imágenes pendientes** permite cargar un archivo por referencia. Reasociar conserva los identificadores y recortes; una huella diferente requiere confirmación. Retirar una referencia muestra sus usos y limpia sus asociaciones. Las escrituras son transaccionales y comprueban la revisión del juego.
+
+## Exportar cartas
+
+En **Exportar / imprimir**, selecciona cartas y cantidades enteras positivas. Cero deselecciona. Ajusta Carta/A4 vertical, margen (mínimo 1 mm) y separación (mínimo 0 mm). Los valores iniciales son 5 mm y 2 mm. La vista paginada usa exactamente las posiciones del PDF y muestra copias, diseños y hojas; al salir se pierde la selección.
+
+**Descargar PNG individual** exporta una carta guardada a 744 × 1039 px. **Descargar PDF de la selección** coloca cada copia a 63 × 88 mm, con marcas exteriores. La exportación comprueba las cartas, muestra progreso, permite cancelar y reutiliza cada diseño. Ante errores conserva la selección. Si otra pestaña cambió el juego, solicita recargar antes de descargar.
+
+La hoja de calibración es opcional. Con márgenes que no dejan espacio para la indicación de escala se añade una hoja de instrucciones y se incluye en el contador. Imprime al **100 %**, sin ajustar a página. Los PDF de reglamento y listado corresponden al paso 10.
+
+## Configurar los conceptos del juego
+
+Abre **Configuración** y selecciona Supertipos, Tipos, Subtipos, Atributos, Recursos o Habilidades. Cada catálogo permite crear, editar y eliminar definiciones. El nombre se puede cambiar sin romper referencias; un concepto utilizado no puede eliminarse hasta retirar sus dependencias.
+
+Crea atributos de texto, número, sí/no o selección y después asígnalos a uno o varios tipos. Los subtipos pertenecen a un tipo. Los límites numéricos y el valor inicial se validan al guardar; las opciones se escriben una por línea. Los atributos y recursos admiten símbolos PNG/JPEG/WebP, que pueden compartirse desde el selector.
+
+Asignar un atributo a un tipo inicializa los valores que faltan en sus cartas. Retirar una asignación elimina valores y vacía espacios únicamente cuando ningún otro tipo de la carta conserva ese atributo. Antes de aplicar estas operaciones se muestran las cartas, valores y espacios afectados para confirmar o cancelar. La definición y sus cartas se guardan juntas con control de revisión. Cambiar el valor inicial de un atributo no reemplaza valores existentes; los cambios de formato, límites u opciones que los invaliden quedan bloqueados y muestran las cartas afectadas.
+
+Las habilidades pueden ser palabras clave o parametrizadas. Por ejemplo, usa `Escudo {cantidad}`, añade la clave `cantidad`, su nombre y formato numérico, y utiliza el mismo marcador en el recordatorio si corresponde. Las claves no se repiten y los marcadores deben coincidir con los parámetros.
+
+Guardar una habilidad utilizada abre una revisión con su definición anterior y nueva y el resultado para cada uso. Los parámetros nuevos o con formato cambiado requieren valores por uso; los parámetros retirados se enumeran antes de confirmar. Los valores compatibles, orden y recordatorios se conservan. Cancelar no escribe; confirmar guarda la definición y todas las cartas afectadas en una transacción que comprueba la revisión del juego. Para eliminar una habilidad, primero quita sus usos desde las cartas.
+
+Los enlaces del configurador conservan `?game=…` y añaden `catalog` y `definition` según la selección. El contrato JSON v1 y la versión de IndexedDB no cambian. Ver casos comprobados en `docs/verificacion-paso-05.md`.
 
 ## Primera carta imprimible
 
-Abre **Exportar / imprimir** (`/exportar/?game=game-forja`). La sección superior muestra el Centinela Mecánico con la plantilla A, ilustración local original y fuente Noto Sans incorporada. Permite descargar:
+Abre **Ver prueba de impresión** desde la biblioteca (`/exportar/`, sin juego). Esta demostración separada muestra el Centinela Mecánico con la plantilla A, ilustración local original y fuente Noto Sans incorporada. Permite descargar:
 
 - PNG de 744 × 1039 píxeles (aproximadamente 300 ppp).
 - PDF en papel Carta, con la carta a exactamente 63 × 88 mm, marcas de corte y cuadrado de calibración de 50 × 50 mm.
 
-Los botones esperan a que la imagen y la fuente carguen. Un error bloquea la descarga y permite reintentar. Pantalla y exportaciones usan la misma escena Konva. Esta prueba es una carta fija: no usa los cambios del editor ni las cantidades de la selección inferior. La plantilla B y la exportación de tandas siguen pendientes.
+Los botones esperan a que la imagen y la fuente carguen. Un error bloquea la descarga y permite reintentar. Esta demostración usa una carta fija; las cartas guardadas se exportan desde dentro del juego.
 
 Imprime el PDF en papel Carta a **100 % / Tamaño real**, sin ajustar a la página. Mide ancho y alto de la carta y del cuadrado, entre centros de línea. Anota los resultados en `docs/calibracion-paso-03.md`; la comprobación digital no aprueba la medida física.
 
@@ -59,7 +107,7 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-`test:e2e` compila y arranca su propio servidor estático en el puerto 4173 (debe estar libre). Comprueba navegación, recarga, acceso directo, búsqueda, filtros, selección temporal, identificadores desconocidos y pantalla pequeña. También descarga PNG/PDF, inspecciona sus dimensiones y comprueba carga demorada, errores y reintento de recursos. Guarda capturas en `test-results/`. `npm run check:all` reúne la verificación del dominio y las pruebas de navegador.
+`test:e2e` compila y arranca su propio servidor estático en el puerto 4173 (debe estar libre). Comprueba navegación, recarga, acceso directo, búsqueda, filtros, selección temporal, identificadores desconocidos y pantalla pequeña. También cubre biblioteca vacía, creación y borrado, guardado y recuperación de imágenes, protección de borradores, errores de cuota, permisos de IndexedDB y conflictos entre pestañas. Incluye los seis catálogos, creación y duplicación de cartas, clasificación y atributos combinados, habilidades ordenadas y revisión de cambios compartidos con migración de parámetros. También descarga PNG/PDF, inspecciona sus dimensiones y comprueba carga demorada, errores y reintento de recursos. Guarda capturas en `test-results/`. `npm run check:all` reúne la verificación del dominio y las pruebas de navegador.
 
 ## Archivos
 
@@ -70,9 +118,9 @@ npm run test:e2e
 - `docs/contrato-datos-v1.md`: formato, invariantes y casos de ejemplo.
 - `src/app/`: rutas fijas, estilos y composición raíz.
 - `src/components/`: vistas y controles; `ui/button.tsx` usa Slot y variantes compatibles con shadcn/ui. `components.json` configura futuras incorporaciones.
-- `src/storage/`: reservado para persistencia local en el paso 04.
-- `src/rendering/`: composición de la plantilla A, carga de recursos, ajuste de texto y medidas.
-- `src/export/`: PDF de calibración y descarga de archivos.
+- `src/storage/`: repositorio Dexie, revisión por juego, blobs y preparación de imágenes y ejemplos. Ver `docs/verificacion-paso-04.md`.
+- `src/rendering/`: composición compartida A/B, recursos locales, ajuste de texto, recorte y diagnósticos.
+- `src/export/`: PNG, distribución en milímetros, PDF de tandas/calibración y descargas.
 - `public/fonts/`, `public/images/`: recursos locales con sus licencias.
 - `tests/e2e/`: pruebas Playwright sobre `out/`.
 

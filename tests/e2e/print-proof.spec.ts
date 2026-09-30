@@ -3,7 +3,9 @@ import { mkdir, readFile } from 'node:fs/promises';
 import { PDFDocument, PDFName, PDFRawStream, decodePDFRawStream } from 'pdf-lib';
 
 test('descarga PNG y PDF con geometría física verificable', async ({ page }) => {
-  await page.goto('/exportar/?game=game-forja');
+  // Two binary downloads and disk writes can exceed 30s under concurrent CI load.
+  test.setTimeout(60_000);
+  await page.goto('/exportar/');
   await expect(page.getByRole('button', { name: 'Descargar PNG', exact: true })).toBeEnabled();
   await mkdir('output/pdf', { recursive: true });
   const pngDownload = page.waitForEvent('download');

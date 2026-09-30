@@ -10,7 +10,7 @@ export function subtypesForTypes(game: GameFile, typeIds: string[]) {
   return game.definitions.subtypes.filter(s => typeIds.includes(s.typeId));
 }
 
-function valueFits(attribute: Attribute, value: unknown): boolean {
+export function valueFits(attribute: Attribute, value: unknown): boolean {
   switch (attribute.kind) {
     case 'text': return typeof value === 'string';
     case 'boolean': return typeof value === 'boolean';
