@@ -3,9 +3,9 @@ import { createContext, useCallback, useContext, useEffect, useRef, useState, ty
 import { useRouter } from 'next/navigation';
 import { Button } from './ui/button';
 import { appPath } from '@/lib/paths';
-import { Modal } from './ui/modal';
+import { Modal, type ModalTheme } from './ui/modal';
 
-type Draft = { dirty: boolean; busy: boolean; save: () => Promise<boolean> };
+type Draft = { dirty: boolean; busy: boolean; save: () => Promise<boolean>; theme?: ModalTheme };
 type Destination = { kind: 'link'; href: string } | { kind: 'back' };
 const DraftContext = createContext<(draft: Draft | null) => void>(() => {});
 
@@ -98,14 +98,14 @@ export function DraftGuard({ children }: { children: ReactNode }) {
       if (destination) navigate(destination);
     } finally { setBusy(false); }
   };
-  return <DraftContext.Provider value={register}>{children}{asking && <Modal title="Cambios sin guardar" busy={busy} onClose={() => setAsking(false)}>
+  return <DraftContext.Provider value={register}>{children}{asking && <Modal title="Cambios sin guardar" theme={draft.current?.theme} busy={busy} onClose={() => setAsking(false)}>
     <p>Guarda tus cambios antes de salir o descártalos para continuar.</p>
-    <div className="action-row"><Button disabled={busy} onClick={() => void leave(true)}>Guardar y salir</Button><Button variant="outline" disabled={busy} onClick={() => void leave(false)}>Descartar y salir</Button><Button variant="ghost" disabled={busy} onClick={() => setAsking(false)}>Permanecer</Button></div>
+    <div className="action-row"><Button loading={busy} onClick={() => void leave(true)}>Guardar y salir</Button><Button variant="outline" disabled={busy} onClick={() => void leave(false)}>Descartar y salir</Button><Button variant="ghost" disabled={busy} onClick={() => setAsking(false)}>Permanecer</Button></div>
   </Modal>}</DraftContext.Provider>;
 }
 
-export function useDraftGuard(dirty: boolean, busy: boolean, save: () => Promise<boolean>) {
+export function useDraftGuard(dirty: boolean, busy: boolean, save: () => Promise<boolean>, theme?: ModalTheme) {
   const register = useContext(DraftContext);
-  useEffect(() => { register({ dirty, busy, save }); }, [register, dirty, busy, save]);
+  useEffect(() => { register({ dirty, busy, save, theme }); }, [register, dirty, busy, save, theme]);
   useEffect(() => () => register(null), [register]);
 }

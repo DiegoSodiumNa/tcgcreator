@@ -25,7 +25,7 @@ const PrintExport = dynamic(() => import('./print-export'), { ssr: false, loadin
 const navigation = [['cards', 'cartas', Layers3, 'Cartas'], ['settings', 'configuracion', Settings2, 'Configuración'], ['rules', 'reglamento', BookOpen, 'Reglamento'], ['export', 'exportar', ArrowDownToLine, 'Exportar / imprimir']] as const;
 
 function Shell({ view, record, children }: { view: View; record?: StoredGame; children: ReactNode }) {
-  return <div className="app-shell"><a href="#content" className="skip-link">Saltar al contenido</a>
+  return <div className={`app-shell${view === 'games' ? ' ds-scope' : ''}`}><a href="#content" className="skip-link">Saltar al contenido</a>
     <aside className="sidebar"><Link href="/" className="brand"><span className="brand-symbol"><Layers3 size={22} /></span>forja<span className="brand-dot">.</span></Link><div className="sidebar-caption">TU ESPACIO CREATIVO</div>
       <Link className={`nav-item ${view === 'games' ? 'active' : ''}`} href="/" aria-current={view === 'games' ? 'page' : undefined}><FolderOpen size={19} />Mis juegos</Link><div className="sidebar-divider" />
       {record && <><div className="sidebar-caption">JUEGO ACTUAL</div><div className="current-game">{record.data.game.name}</div><nav aria-label="Secciones del juego">{navigation.map(([key, path, Icon, label]) => <Link key={key} href={gameUrl(path, record.id)} className={`nav-item ${view === key || (key === 'cards' && view === 'editor') ? 'active' : ''}`} aria-current={view === key ? 'page' : undefined}><Icon size={18} />{label}</Link>)}</nav></>}
