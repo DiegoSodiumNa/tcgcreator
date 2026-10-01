@@ -16,7 +16,7 @@ test('recorrido, guardado y recarga sobre los archivos estáticos', async ({ pag
     await page.reload(); await expect(page.getByRole('heading', { name: title })).toBeVisible();
   }
   await page.getByRole('link', { name: /Mis juegos/ }).click();
-  await expect(page.getByRole('heading', { name: 'Tus ideas empiezan aquí.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Tus ideas empiezan aquí' })).toBeVisible();
   expect(errors).toEqual([]);
 });
 

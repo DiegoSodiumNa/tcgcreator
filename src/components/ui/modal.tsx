@@ -12,7 +12,7 @@ export function Modal({ title, children, onClose, busy = false, theme, returnFoc
     dialog?.showModal();
     return () => { dialog?.close(); if (opener instanceof HTMLElement && opener.isConnected) opener.focus(); };
   }, [returnFocusRef]);
-  return <dialog ref={ref} className={`local-dialog panel${theme === 'editorial' ? ' ds-scope ds-pixel-frame' : ''}`} aria-labelledby={id} aria-busy={busy || undefined} onCancel={event => { event.preventDefault(); if (!busy) onClose(); }}
+  return <dialog ref={ref} className={`local-dialog panel${theme === 'editorial' ? ' ds-scope' : ''}`} aria-labelledby={id} aria-busy={busy || undefined} onCancel={event => { event.preventDefault(); if (!busy) onClose(); }}
     onKeyDown={event => {
       if (theme !== 'editorial' || event.key !== 'Tab') return;
       const controls = Array.from(event.currentTarget.querySelectorAll<HTMLElement>('a[href], button, input, select, textarea, [tabindex]'))

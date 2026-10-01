@@ -1,317 +1,258 @@
-# Forja — Identidad visual
+# TCGCreator — Mis juegos
 
-Versión: 0.1 · Propuesta inicial · 1 de octubre de 2026
+Especificación de diseño basada en la captura proporcionada. Describe la pantalla inicial de una aplicación para crear y recuperar juegos de cartas, con una biblioteca local vacía.
 
-Web de referencia: https://diegosodiumna.github.io/tcgcreator/
+> La captura es la referencia visual. Los colores, medidas y tamaños tipográficos indicados son aproximaciones; las interacciones y el comportamiento adaptable se proponen cuando no pueden comprobarse en una imagen estática.
 
-## 1. Propósito y alcance
+## 1. Dirección visual
 
-Forja es un laboratorio para crear juegos de cartas y prepararlos para la mesa. Su identidad debe transmitir oficio, exploración y fantasía, acompañando tareas concretas: crear juegos, configurar conceptos, editar cartas, escribir reglamentos y preparar exportaciones.
+- **Estética:** laboratorio de juegos con ambientación de grimorio, sobria y oscura. La temática se expresa mediante vocabulario, pequeños símbolos y tonos de pergamino, sin ilustraciones grandes.
+- **Jerarquía:** bienvenida centrada, dos paneles de acciones apilados y biblioteca con estado vacío.
+- **Superficies:** fondos casi negros con matiz verde; paneles de verde carbón ligeramente más claros.
+- **Acentos:** verde salvia para navegación activa y enlaces; ocre para detalles ornamentales, etiquetas y notas.
+- **Geometría:** paneles y controles rectangulares, esquinas rectas y separadores finos. Evitar sombras intensas y degradados.
+- **Densidad:** navegación compacta y contenido principal espacioso.
+- **Idioma:** español.
 
-Este documento define la apariencia de la web existente. No propone nuevas funciones ni cambios en el funcionamiento del guardado, la importación o la impresión.
+## 2. Composición y medidas de referencia
 
-La estética de la interfaz pertenece a Forja. Cada juego y sus cartas pueden tener una identidad propia: la marca no debe imponer fantasía oscura a las ilustraciones, las plantillas personalizadas o los archivos exportados.
+La imagen original mide **2560 × 2906 px**. Para describir la composición se utiliza su versión normalizada de **1472 × 1671 px**; estas medidas no implican que la aplicación tenga un tamaño de viewport fijo.
 
-### Estado de las decisiones
-
-- **Observado en la web:** nombre Forja, marca escrita `forja.`, símbolo de cartas apiladas, verde como acento, interfaz clara y guardado local. Las funciones se identificaron en la portada y la guía de uso pública.
-- **Propuesto en este documento:** tema oscuro, paleta musgo/pergamino/bronce, lenguaje de píxel, geometría de componentes y tratamiento tipográfico.
-- **Pendiente de respuesta:** conservación o rediseño del logo, peso relativo de las tres referencias y selección final de fuentes decorativas.
-
-Las propuestas permiten avanzar con una dirección coherente; no equivalen a preferencias ya confirmadas por el propietario.
-
-## 2. Concepto de marca
-
-**Un taller de cartas iluminado dentro de una biblioteca antigua.**
-
-La marca combina la materialidad del pergamino y el metal envejecido con la precisión del pixel art. Debe sentirse misteriosa, artesanal y tranquila. La herramienta conserva claridad y orden durante sesiones largas de edición.
-
-Tres principios:
-
-1. **La carta es protagonista.** La vista previa y las ilustraciones reciben más atención que los adornos de la interfaz.
-2. **El detalle aparece en los bordes.** Emblemas, esquinas y separadores aportan carácter sin ocupar el área de trabajo.
-3. **La información permanece nítida.** Nombres, reglas, valores, avisos y formularios usan tipografía fácil de leer.
-
-## 3. Lectura de las referencias
-
-| Referencia aportada | Rasgo que se toma | Aplicación en Forja |
-| --- | --- | --- |
-| 1 · Roguelight | Fondo oscuro cálido, crema luminosa, verde vegetal, siluetas y contornos pixelados | Atmósfera general, acento principal y tratamiento de la marca |
-| 2 · Dark Fantasy UI | Bronce apagado, esquinas ornamentadas, paneles e inventarios | Marcos de secciones, diálogos y selección de cartas |
-| 3 · Dark Aesthetic | Pocos colores, símbolos compactos y dithering | Emblemas originales, estados vacíos y pequeños detalles decorativos |
-
-Las imágenes son referencias de estilo. Sus títulos, instrucciones promocionales, textos, marcas de agua y símbolos específicos no forman parte de la marca Forja. Crear ornamentación propia; no incorporar recortes de estas imágenes como activos finales.
-
-La mezcla provisional da prioridad a la atmósfera de la referencia 1, usa la referencia 2 para marcos y reserva la referencia 3 para detalles. Evitar una acumulación de calaveras, símbolos religiosos o imaginería macabra hasta confirmar el tono deseado.
-
-## 4. Marca y símbolo
-
-### Nombre
-
-Conservar **Forja** y la forma breve **forja.** ya utilizada en la web. No sustituir el nombre por el título de ninguna referencia.
-
-### Dirección provisional del logo
-
-Conservar el concepto de cartas apiladas y explorar una versión construida sobre una cuadrícula de 16 × 16 o 24 × 24 unidades. El símbolo debe seguir reconociéndose como cartas; el acabado escalonado aporta el lenguaje retro.
-
-- Versión principal: símbolo pergamino y nombre pergamino sobre carbón.
-- Versión de acento: símbolo musgo y nombre pergamino sobre carbón.
-- Versión clara: símbolo y nombre carbón sobre pergamino.
-- Versión monocroma: una sola tinta, sin texturas ni sombras.
-- Área de protección: como mínimo un cuarto de la altura del símbolo en cada lado.
-- Tamaño del símbolo en la navegación: 32–40 px; variante simplificada para 16–24 px.
-- No distorsionar, inclinar ni añadir resplandor permanente al logo.
-
-El logo final no se entrega en este archivo. La adaptación pixelada es una propuesta pendiente de confirmar; conservar el activo actual hasta que exista una versión aprobada.
-
-## 5. Paleta
-
-Los colores siguientes son una interpretación de las referencias, no una extracción exacta de sus píxeles.
-
-| Token | Color | Función |
-| --- | --- | --- |
-| `--color-bg` | `#191B1A` | Fondo general, carbón con matiz verde |
-| `--color-surface` | `#252923` | Paneles y navegación |
-| `--color-surface-raised` | `#30372D` | Diálogos y superficies elevadas |
-| `--color-field` | `#141713` | Campos y área de trabajo de la vista previa |
-| `--color-text` | `#EEEBCB` | Texto principal, pergamino |
-| `--color-text-muted` | `#B8BBA4` | Ayudas, metadatos y texto secundario |
-| `--color-accent` | `#A9C782` | Acción principal, selección y foco |
-| `--color-accent-hover` | `#BED99B` | Acción principal al pasar el puntero |
-| `--color-on-accent` | `#191B1A` | Texto sobre botones musgo |
-| `--color-bronze` | `#9C8065` | Ornamentación y marcos de identidad |
-| `--color-border` | `#65705B` | Límites funcionales de campos y controles |
-| `--color-divider` | `#41483C` | Separadores de secciones |
-| `--color-success` | `#A9C782` | Confirmación de guardado |
-| `--color-warning` | `#E4BA75` | Desbordamiento o imágenes pendientes |
-| `--color-danger` | `#ED9B8F` | Errores y acciones destructivas |
-| `--color-info` | `#A2C5D0` | Información y ayudas contextuales |
-
-### Uso del color
-
-- Predominan los fondos oscuros y el pergamino. El musgo identifica las acciones y selecciones relevantes.
-- Usar bronce principalmente en bordes decorativos. No utilizarlo para textos pequeños o estados críticos sin verificar contraste.
-- Usar fondos sólidos detrás de texto editable. El dithering no debe pasar bajo reglas, ayudas ni etiquetas.
-- No asociar rareza, tipos o recursos del juego con esta paleta de forma obligatoria: esos colores pertenecen a cada juego.
-- Advertencias y errores combinan color, icono y explicación escrita.
-- El estado «Guardado local» debe expresar su significado con texto; un punto verde por sí solo es insuficiente.
-
-### Contraste
-
-Objetivo de aceptación: mínimo 4.5:1 para texto normal y 3:1 para texto grande y límites visuales necesarios de controles. Comprobar los pares reales, incluidos hover, foco, error y deshabilitado, antes de aplicar el tema. Esta propuesta no declara una auditoría de accesibilidad de la web.
-
-## 6. Tipografía
-
-### Sistema operativo inicial
-
-| Rol | Familia inicial | Tamaño / interlineado | Regla |
-| --- | --- | --- | --- |
-| Marca y título de portada | `Georgia, 'Times New Roman', serif` | 36–48 / 1.1 | Peso fuerte, frases cortas |
-| Títulos de sección | `Georgia, 'Times New Roman', serif` | 22–28 / 1.2 | Sin texturas sobre las letras |
-| Formularios, botones y navegación | `system-ui, -apple-system, 'Segoe UI', sans-serif` | 14–16 / 1.4–1.5 | Primar reconocimiento rápido |
-| Texto largo y ayudas | Misma familia de interfaz | 16 / 1.6; ayudas 14 / 1.5 | Columna de 60–75 caracteres |
-| Valores y pequeñas etiquetas de catálogo | `ui-monospace, Consolas, monospace` | 12–14 / 1.4 | Números tabulares cuando proceda |
-
-Esta combinación funciona sin descargas de fuentes. La fuente de marca definitiva puede sustituirse por una gótica pixelada, conservando una variante legible para tamaños pequeños. La familia concreta queda pendiente: comprobar licencia, carga web, acentos, ñ, signos españoles y números antes de elegirla.
-
-- La tipografía pixelada se reserva para marca, títulos breves y rótulos decorativos.
-- No aplicarla a reglas, instrucciones, listas extensas ni campos de edición.
-- Evitar párrafos en mayúsculas. Rótulos cortos pueden usar mayúsculas con `letter-spacing: 0.08em`.
-- La tipografía elegida por el usuario para sus cartas se mantiene independiente de la interfaz.
-
-## 7. Geometría, píxel y materialidad
-
-### Forma
-
-- Predominan rectángulos de esquinas rectas, con pequeños cortes escalonados en marcos decorativos.
-- Radio funcional de 2 px para campos y botones; 0 px para marcos pixelados.
-- Borde funcional de 1 px. Contorno decorativo de 2 px como máximo.
-- Reservar dobles marcos para portada, vista previa o diálogos importantes; no decorar cada campo.
-- Sombra discreta: `0 8px 24px rgb(0 0 0 / 24%)`. Sin efectos de cristal ni brillos continuos.
-
-### Pixel art
-
-- Iconos de píxel en cuadrículas de 16 o 24 unidades. Escalarlos por factores enteros cuando sea posible.
-- Activos raster pixelados: `image-rendering: pixelated`. No aplicar esta regla globalmente ni a ilustraciones del usuario.
-- Mantener grosor y escala de píxel consistentes dentro de cada familia de iconos.
-- Dithering únicamente en emblemas, ilustraciones ambientales y separadores amplios; máximo aproximado del 10 % del área visible.
-- No simular píxel mediante ruido sobre texto o bordes borrosos.
-
-### Ornamentación
-
-Crear una pequeña familia original: esquina escalonada, rombo, chispa de forja y separador de cartas. Usar una ornamentación dominante por sección. Evitar copiar motivos de los ejemplos.
-
-## 8. Espaciado y composición
-
-Escala de espacio: **4, 8, 12, 16, 24, 32, 48 y 64 px**.
-
-- Margen de página: 24–32 px en escritorio; 16 px en móvil.
-- Interior de panel: 24 px en escritorio; 16 px en móvil.
-- Separación entre grupos de campos: 24 px; entre etiqueta y campo: 8 px.
-- Altura mínima de controles: 44 px. Los iconos pueden ser pequeños dentro de un área interactiva amplia.
-- Biblioteca: cuadrícula con huecos de 16–24 px y nombres que puedan envolver a dos líneas.
-- Editor: diferenciar navegación, formulario y vista previa. La vista previa debe tener espacio propio y un fondo neutro.
-- En ancho reducido, apilar secciones sin alterar el orden lógico. Evitar comprimir cartas y formularios hasta volverlos ilegibles.
-- Permitir zoom del navegador y aumento de texto sin ocultar acciones esenciales.
-
-## 9. Componentes
-
-### Navegación y cabecera
-
-Marca en pergamino, navegación sobria y una línea inferior de bronce. La sección activa combina texto, fondo ligeramente elevado y un indicador musgo. Conservar nombres y jerarquía de navegación existentes.
-
-El estado de almacenamiento se presenta como etiqueta compacta: icono, «Guardado local» y acceso a su explicación si ya existe. No sugerir sincronización en nube.
-
-### Botones
-
-| Variante | Apariencia | Aplicación |
-| --- | --- | --- |
-| Principal | Fondo musgo, texto carbón, borde musgo | Crear juego, guardar o acción principal de una vista |
-| Secundaria | Fondo de superficie, texto pergamino, borde funcional | Juego de ejemplo, importar, acciones alternativas |
-| Discreta | Sin relleno, texto pergamino o musgo, subrayado en enlaces | Volver, ayuda y navegación contextual |
-| Destructiva | Texto peligro y borde funcional; énfasis mayor en confirmación | Eliminar donde la función ya exista |
-
-Evitar varias acciones principales contiguas. Los botones pueden llevar un pequeño corte escalonado o un icono, pero su etiqueta debe permanecer clara.
-
-### Campos y selectores
-
-Fondo oscuro de campo, texto pergamino y borde funcional. Etiquetas visibles encima. Placeholder solo como ejemplo, nunca como única etiqueta. Mantener el mismo estilo en campos de texto, números, selectores y áreas de texto.
-
-Errores: borde peligro, icono y mensaje junto al campo. Valores seleccionados: indicador musgo y texto explícito. La ornamentación no debe interferir con cursor, selección de texto o iconos nativos.
-
-### Paneles y biblioteca
-
-Paneles de superficie con borde o separador discreto. Las tarjetas de juego usan nombre y metadatos como primera jerarquía. Un motivo de carta puede aparecer en la miniatura o estado vacío. Hover y foco destacan el contorno; no desplazan el panel.
-
-### Pestañas y categorías
-
-Activo: texto pergamino, fondo elevado e indicador musgo. Inactivo: texto secundario. No usar solo diferencias de color. Las categorías definidas por el usuario deben conservar sus nombres completos.
-
-### Diálogos
-
-Fondo elevado, borde bronce y esquinas ornamentadas opcionales. Título breve, contenido legible y acciones agrupadas al final. El foco inicial, cierre por teclado y retorno del foco deben funcionar con el comportamiento existente.
-
-### Mensajes y estados vacíos
-
-Estados vacíos: emblema original pequeño, explicación concreta y una acción. Mantener textos como «Aún no tienes juegos» y «Crear juego»; evitar metáforas que oculten la tarea.
-
-Para guardado, errores de almacenamiento, imágenes pendientes o contenido que no cabe, usar mensajes explícitos y persistencia suficiente para leerlos. No relegarlos a pequeños adornos del marco.
-
-## 10. Aplicación a las vistas existentes
-
-| Vista / función descrita en la web | Tratamiento visual |
+| Región | Posición y tamaño aproximados en la referencia normalizada |
 | --- | --- |
-| Mis juegos | Cabecera de marca, título serif, panel de creación destacado y biblioteca ordenada |
-| Recuperar un juego | Panel secundario sobrio; importación y explicación del respaldo claramente visibles |
-| Configuración | Grupos de tipos, subtipos, atributos, recursos y habilidades visualmente separados; ornamentación mínima |
-| Cartas | Lista o cuadrícula de cartas clara, selección musgo y vista previa protagonista |
-| Diseño | Marco neutro alrededor de la carta; colores e ilustraciones del juego sin filtros impuestos por Forja |
-| Reglamento | Área de lectura amplia, tipografía de interfaz y controles claros para guardar o descargar |
-| Exportar / imprimir | Cantidades legibles, selección explícita, avisos visibles y hojas sobre fondo neutro |
-| Guía de uso | Texto de lectura cómoda, pasos numerados y pequeños separadores de identidad |
+| Barra lateral | x: 0; ancho: 294 px; alto completo |
+| Cabecera principal | x: 294; y: 0; alto: 64 px |
+| Área principal | Desde x: 294 hasta el borde derecho |
+| Columna de contenido | x: 340; ancho: 939 px |
+| Bienvenida | y: 132–295 px; alineación central dentro de la columna |
+| Panel de creación | x: 340; y: 368; ancho: 939; alto: 323 px |
+| Panel de recuperación | x: 340; y: 731; ancho: 939; alto: 272 px |
+| Cabecera de biblioteca | y: 1060 px |
+| Estado vacío | Aproximadamente y: 1165–1490 px |
+| Pie principal | y: 1602; alto: 69 px |
 
-La portada y la guía se revisaron directamente. Las pautas para las otras vistas se basan en las funciones descritas en esa guía; su distribución concreta debe validarse al aplicar la identidad.
+La columna no está centrada en todo el espacio a la derecha de la barra lateral: su margen izquierdo es de unos 46 px y el derecho es más amplio. Conservar esta distribución al reproducir la captura.
 
-### Límites de impresión y exportación
+## 3. Tokens visuales
 
-El tema oscuro no debe trasladarse automáticamente al PDF del reglamento, a hojas de impresión ni a los PNG de las cartas. Mantener fondos adecuados para papel, tamaños físicos de carta de 63 × 88 mm, líneas de calibración y contenido del juego. No añadir logo, ornamentos ni color de marca a exportaciones sin una opción o decisión explícita.
+### Color
 
-## 11. Estados y movimiento
+Valores orientativos para una implementación inicial; ajustar contra la referencia si se exige fidelidad píxel a píxel.
 
-- **Hover:** variar fondo o borde, sin cambiar el tamaño ni mover el contenido.
-- **Foco:** anillo musgo de 2 px con separación de 3 px; visible también en paneles interactivos.
-- **Presionado:** oscurecer ligeramente la superficie y mantener la etiqueta legible.
-- **Deshabilitado:** superficie neutra, texto secundario y atributo funcional correspondiente. No depender exclusivamente de baja opacidad.
-- **Guardando:** conservar el contexto del botón y mostrar «Guardando…» cuando el estado exista.
-- **Guardado:** icono de confirmación y texto «Guardado en este navegador».
-- **Error:** explicación y acción de recuperación cuando estén disponibles; no dar por guardado el contenido.
-- Transiciones de color y borde: 120–160 ms. Evitar parpadeo, partículas permanentes y animaciones que compitan con el editor.
-- Con `prefers-reduced-motion: reduce`, eliminar desplazamientos y animaciones decorativas.
+| Token | Valor aproximado | Uso |
+| --- | --- | --- |
+| `background` | `#171B18` | Fondo principal |
+| `sidebar-background` | `#141713` | Barra lateral |
+| `brand-background` | `#10130F` | Bloque superior de marca |
+| `panel-background` | `#20261E` | Creación y recuperación |
+| `active-background` | `#211F18` | Opción lateral seleccionada |
+| `text-primary` | `#E9E6D2` | Títulos y acciones |
+| `text-secondary` | `#AAA491` | Descripciones |
+| `text-muted` | `#817A66` | Metadatos y adornos |
+| `accent-sage` | `#A8BC82` | Selección, indicador de guardado y enlaces |
+| `accent-gold` | `#C2AD55` | Contador de juegos |
+| `accent-bronze` | `#9D8366` | Símbolos e información |
+| `border-subtle` | `#35372B` | Divisiones y bordes discretos |
+| `input-background` | `#FFFFFF` | Campo del título, según la captura |
 
-## 12. Voz de marca
+### Tipografía
 
-Español claro, cercano y directo. El carácter fantástico se expresa principalmente con la apariencia.
+La familia exacta no puede identificarse con certeza. Usar una sans serif de formas neutras y buena legibilidad, como `Arial, Helvetica, sans-serif`. La marca tiene un espaciado amplio y el pie utiliza una familia monoespaciada.
 
-Usar: «Crear carta», «Guardar cambios», «Imágenes pendientes», «Descargar PDF», «Tu juego está guardado en este navegador».
+| Estilo | Tamaño aproximado | Peso / tratamiento |
+| --- | --- | --- |
+| Marca `TCGCreator` | 30 px | 700; tracking de 2 px |
+| Subtítulo de marca | 15 px | 500; mayúsculas |
+| Título de bienvenida | 36 px | 700; mayúsculas; tracking de 2 px; interlineado 41 px |
+| Descripción de bienvenida | 22 px | 400; interlineado 32 px |
+| Títulos de panel | 18 px | 700; mayúsculas |
+| Título de biblioteca | 22 px | 700; mayúsculas |
+| Título de estado vacío | 29 px | 700; mayúsculas |
+| Texto principal de ayuda | 19–20 px | 400; interlineado 27 px |
+| Acciones | 16–17 px | 700; mayúsculas |
+| Navegación y metadatos | 13–15 px | 500–700 |
+| Pie | 14–16 px | Monoespaciada; tracking de 1 px |
 
-Reservar frases evocadoras para portada o estados vacíos, por ejemplo: «Dale forma a tu próximo juego». Evitar sustituir acciones claras por «Invocar», «Conjurar» o «Sellar».
+### Espaciado y bordes
 
-## 13. Variables de diseño sugeridas
+- Escala base recomendada: `4, 8, 12, 16, 24, 32, 40, 48, 64 px`.
+- Relleno horizontal de paneles: aproximadamente 28 px.
+- Separación entre paneles: 40 px.
+- Separadores: 1 px en `border-subtle`.
+- Radios: 0 px en paneles, botones y campos.
+- Los adornos son pequeños y secundarios; no deben competir con los títulos.
 
-Bloque de partida para trasladar la guía a estilos. No implica que estos nombres coincidan con los del proyecto actual.
+## 4. Estructura y contenido
 
-```css
-:root {
-  color-scheme: dark;
-  --color-bg: #191b1a;
-  --color-surface: #252923;
-  --color-surface-raised: #30372d;
-  --color-field: #141713;
-  --color-text: #eeebcb;
-  --color-text-muted: #b8bba4;
-  --color-accent: #a9c782;
-  --color-accent-hover: #bed99b;
-  --color-on-accent: #191b1a;
-  --color-bronze: #9c8065;
-  --color-border: #65705b;
-  --color-divider: #41483c;
-  --color-success: #a9c782;
-  --color-warning: #e4ba75;
-  --color-danger: #ed9b8f;
-  --color-info: #a2c5d0;
-  --font-display: Georgia, 'Times New Roman', serif;
-  --font-ui: system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-data: ui-monospace, Consolas, monospace;
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-6: 24px;
-  --space-8: 32px;
-  --space-12: 48px;
-  --space-16: 64px;
-  --radius-control: 2px;
-  --control-min-height: 44px;
-  --shadow-panel: 0 8px 24px rgb(0 0 0 / 24%);
-  --transition-ui: 140ms ease-out;
-}
+### 4.1 Barra lateral
 
-:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 3px;
-}
+Contenedor vertical con borde derecho tenue. La marca ocupa unos 109 px de alto y tiene un separador inferior.
 
-.pixel-art {
-  image-rendering: pixelated;
-}
+**Marca:** icono de tres cartas superpuestas en tono pergamino, `TCGCreator` y debajo `UI PACK V2.0`.
 
-@media (prefers-reduced-motion: reduce) {
-  .decorative-animation {
-    animation: none;
-    transition: none;
-  }
-}
+**Grupo de navegación:**
+
+- Etiqueta: `[ ESPACIO CREATIVO ]`.
+- Opción seleccionada: `MIS JUEGOS`, precedida por un pequeño rombo verde.
+- Opción secundaria: `GUÍA DE USO`, precedida por un pequeño punto o guion tenue.
+
+La opción activa ocupa aproximadamente 256 × 48 px, con margen lateral de 19 px, borde verde salvia de 1 px y una franja izquierda de unos 4 px.
+
+**Bloque inferior:** anclado visualmente al pie de la barra lateral, separado por una línea horizontal.
+
+- Pequeña estrella verde y etiqueta `DATOS LOCALES`.
+- Texto: `De una idea a tu próxima partida en el reino.`
+- Una línea vertical ocre tenue acompaña el texto.
+
+### 4.2 Cabecera
+
+Franja horizontal con borde inferior tenue.
+
+- Izquierda: breadcrumb `ESPACIO DE TRABAJO » MIS JUEGOS`; primer nivel apagado y página actual en pergamino claro.
+- Derecha: pequeño cuadrado verde seguido de `GUARDADO LOCAL`, en verde salvia y mayúsculas.
+- Alineación vertical centrada y relleno horizontal aproximado de 36–48 px.
+
+### 4.3 Bienvenida
+
+Bloque centrado dentro de la columna de contenido. Dos rombos ocres pequeños flanquean el título.
+
+**Título, en dos líneas:**
+
+```text
+TUS IDEAS EMPIEZAN
+AQUÍ
 ```
 
-Los documentos de impresión requieren estilos propios de fondo claro y medidas físicas; no deben heredar sin revisión estas variables.
+**Descripción, en dos líneas:**
 
-## 14. Criterios de aceptación visual
+```text
+Crea un juego o empieza con doce cartas de ejemplo para tu
+inventario.
+```
 
-- La marca Forja se identifica en cabecera y mantiene coherencia entre vistas.
-- Las acciones principales se distinguen sin competir con las vistas previas de cartas.
-- Texto de formularios y reglamentos permanece legible, sin fuentes decorativas ni dithering de fondo.
-- Marcos, iconos y adornos comparten escala y grosor de píxel.
-- Estados activos, foco, avisos y errores se comprenden sin depender solo del color.
-- El diseño funciona con teclado, zoom al 200 % y un ancho de 320 px sin perder controles esenciales.
-- Las ilustraciones de usuarios conservan su color y suavizado originales.
-- Exportaciones e impresión conservan medidas, legibilidad y apariencia del juego.
-- Los textos describen fielmente el guardado local y las limitaciones de respaldo.
+Separación aproximada de 28–32 px entre título y descripción. Dejar unos 68–72 px antes del primer panel.
 
-## 15. Decisiones para cerrar la versión 1.0
+### 4.4 Panel de creación
 
-1. Confirmar si se conserva el logo actual o se adapta el símbolo de cartas a píxel.
-2. Confirmar si domina la fantasía vegetal de la referencia 1, el bronce ornamental de la 2 o el contraste claro de la 3.
-3. Confirmar el tono: misterioso y artesanal como base, o mayor peso épico, acogedor o macabro.
-4. Seleccionar y validar la fuente decorativa definitiva si se desea sustituir la combinación inicial.
+Superficie rectangular verde carbón.
 
-Hasta cerrar estas decisiones, usar esta guía como propuesta revisable de identidad visual.
+1. **Cabecera:** pequeño rombo verde; `NOMBRE DEL NUEVO JUEGO` a la izquierda; `[ 32×32 FRAME ]` en tono apagado a la derecha.
+2. **Separador:** línea horizontal a todo el ancho interior.
+3. **Campo de texto:** ancho completo, altura aproximada de 48 px, fondo blanco, borde gris fino y placeholder `Escribe el título de tu creación...`. La captura muestra el placeholder muy claro; para una versión utilizable, aumentar su contraste sin alterar la jerarquía.
+4. **Fila de acciones:** `+ CREAR JUEGO` y `CREAR JUEGO DE EJEMPLO`. Se presentan como acciones de texto sin contenedor relleno destacado. La primera incluye el símbolo de suma.
+5. **Aviso:** icono `i` ocre y texto en dos líneas:
+
+```text
+Los datos pertenecen a este navegador y dirección del sitio. Borrar sus datos elimina los
+juegos locales. Conserva tus imágenes originales en tus pergaminos.
+```
+
+Dejar unos 32–40 px entre el campo, la fila de acciones y el aviso. El aviso usa texto secundario y ocupa casi todo el ancho disponible.
+
+### 4.5 Panel de recuperación
+
+Segunda superficie rectangular, del mismo ancho y color.
+
+1. **Cabecera:** icono de pergamino pequeño y `RECUPERAR UN JUEGO`; a la derecha `[ IMPORTAR ARCHIVO JSON ]`.
+2. **Separador horizontal.**
+3. **Selector de archivo:** botón rectangular con borde tenue `Seleccionar archivo` y texto contiguo `Ningún archivo seleccionado`.
+4. **Nota:** línea vertical ocre tenue a la izquierda del texto:
+
+```text
+Se crea una copia independiente en el archivo local. Las imágenes se reasocian después en el
+grimorio.
+```
+
+El selector está separado del borde del panel por aproximadamente 40 px a la izquierda; la nota vuelve a alinearse con el inicio del contenido interior.
+
+### 4.6 Biblioteca vacía
+
+**Cabecera horizontal:**
+
+- `TU BIBLIOTECA`, alineado a la izquierda.
+- `0 JUEGOS`, en ocre dorado, junto al título.
+- Enlace alineado al extremo derecho: `[ VER PRUEBA DE IMPRESIÓN ]`, verde salvia y subrayado.
+
+**Contenido centrado:**
+
+- Icono de cubo en contorno verde salvia, de unos 32 px.
+- Cuatro pequeños elementos laterales de la referencia muestran `icon` y `16×16`, dos por lado. Tratar estos rótulos como marcadores gráficos de la captura, sin atribuirles acciones.
+- Título: `AÚN NO TIENES JUEGOS`.
+- Descripción en dos líneas:
+
+```text
+Crea un grimorio vacío o utiliza el mazo de ejemplo para
+probar el guardado en tu inventario.
+```
+
+**Consejo del creador:** bloque de texto más estrecho, alineado a la izquierda y centrado bajo el estado vacío.
+
+- Pequeño símbolo ornamental y título `CONSEJO DEL CREADOR`.
+- Texto: `Para crear cartas legendarias, reúne elementos en tu espacio de trabajo. Cada proyecto contiene cartas, estadísticas e ilustraciones independientes.`
+- A la derecha, línea vertical tenue y secuencia decorativa de triángulos y rombos ocres.
+
+### 4.7 Pie principal
+
+Franja inferior con borde superior, a la derecha de la barra lateral.
+
+- Izquierda: rombo ocre y `TCGCREATOR / LABORATORIO DE JUEGOS`.
+- Derecha: `Hecho para imaginar, probar y jugar en cualquier reino.` y rombo ocre final.
+- Texto monoespaciado, apagado, con espaciado amplio entre letras.
+
+## 5. Componentes reutilizables
+
+| Componente | Partes | Variantes necesarias |
+| --- | --- | --- |
+| `SidebarItem` | Icono, etiqueta, borde y franja activa | Normal, seleccionado, hover, foco |
+| `LocalStorageStatus` | Indicador cuadrado y texto | Estado local visible en la captura |
+| `SectionPanel` | Superficie, título, icono, metadato, separador y contenido | Creación, recuperación |
+| `GameNameInput` | Etiqueta y campo de texto | Vacío, completado, foco, error |
+| `TextAction` | Símbolo opcional y etiqueta | Principal, secundaria, deshabilitada, foco |
+| `JsonFilePicker` | Botón de archivo y nombre seleccionado | Sin archivo, seleccionado, error |
+| `InformationNote` | Icono o línea vertical y texto | Aviso local, ayuda de importación |
+| `LibraryHeader` | Título, contador y enlace | Biblioteca vacía o con elementos |
+| `EmptyLibrary` | Adorno, icono, título, descripción y consejo | Vacía |
+
+## 6. Comportamiento propuesto
+
+La imagen muestra el estado inicial; las siguientes reglas son una propuesta de implementación basada en los controles y textos visibles.
+
+- **Crear juego:** obtener un título válido, crear el proyecto local y actualizar la biblioteca y su contador. Si falta el título, mostrar un mensaje próximo al campo y llevar el foco allí.
+- **Crear juego de ejemplo:** crear un proyecto con doce cartas de ejemplo, según el texto de bienvenida.
+- **Recuperar un juego:** abrir un selector de archivos JSON; validar formato y contenido antes de crear una copia local independiente. Mostrar errores cerca del selector.
+- **Imágenes importadas:** permitir su reasociación en la vista de grimorio, de acuerdo con la nota visible.
+- **Biblioteca:** sustituir el estado vacío cuando exista al menos un juego. La apariencia de sus tarjetas no está definida por esta captura.
+- **Prueba de impresión:** abrir la vista correspondiente. Su contenido y formato no están definidos por esta captura.
+- **Guía de uso:** navegar a la ayuda. Su diseño no está definido por esta captura.
+- **Persistencia:** el contenido visible comunica almacenamiento asociado al navegador y al origen del sitio; no identifica la tecnología utilizada.
+
+## 7. Adaptación a otros tamaños
+
+Propuesta, ya que la captura solo muestra una composición amplia:
+
+- **Escritorio:** mantener barra lateral y columna principal; utilizar un ancho máximo cercano a 940 px para el contenido y permitir desplazamiento vertical cuando sea necesario.
+- **Pantallas intermedias:** reducir márgenes exteriores y permitir que la columna ocupe el ancho restante. Los metadatos de los paneles pueden pasar a una segunda línea.
+- **Móvil:** convertir la navegación lateral en menú desplegable; apilar acciones; hacer que el campo y el selector se adapten al ancho disponible.
+- Permitir que la cabecera de biblioteca y el pie se distribuyan en varias líneas, conservando el orden de lectura.
+- No fijar la altura total a la de la captura ni permitir que un pie superpuesto tape contenido.
+
+## 8. Accesibilidad
+
+- Usar una estructura semántica con navegación, cabecera, contenido principal y pie.
+- Asociar `NOMBRE DEL NUEVO JUEGO` al campo mediante una etiqueta real; el placeholder no sustituye la etiqueta.
+- Implementar acciones como botones y destinos como enlaces, con foco visible en verde salvia.
+- Marcar los adornos como decorativos para lectores de pantalla.
+- Mantener contraste legible en ayudas, placeholders y metadatos; algunos textos de la captura son deliberadamente tenues.
+- Conservar áreas de interacción de al menos 44 px de alto y navegación por teclado.
+- Anunciar validaciones, importaciones y cambios del contador mediante mensajes accesibles.
+
+## 9. Criterios de fidelidad
+
+- La barra lateral, la cabecera y el pie delimitan claramente el espacio de trabajo.
+- La bienvenida mantiene su título en dos líneas y una posición central dentro de la columna.
+- Los dos paneles conservan el mismo ancho, las esquinas rectas y una diferencia de fondo sutil respecto al lienzo.
+- El campo blanco es el elemento de mayor contraste de la pantalla.
+- Las acciones de creación conservan su tratamiento tipográfico discreto.
+- La biblioteca muestra `0 JUEGOS`, su enlace de impresión y el estado vacío completo.
+- Se conserva el texto visible, la paleta verde carbón/pergamino/salvia y la ornamentación pequeña.
+- Los comportamientos y variantes propuestos no se presentan como estados observados en la imagen.

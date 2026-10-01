@@ -2,44 +2,50 @@ import { test, expect } from '@playwright/test';
 import { appUrl } from './urls';
 import { demoGame } from '../../src/fixtures/demo-game';
 
-test('piloto editorial: estados, teclado, adaptación y aislamiento', async ({ page }) => {
+test('biblioteca oscura: estados, teclado, adaptación y aislamiento', async ({ page }) => {
   await page.clock.setFixedTime(new Date('2026-09-30T18:00:00Z'));
   await page.emulateMedia({ colorScheme: 'dark', reducedMotion: 'reduce' });
   await page.goto(appUrl('/'));
   const shell = page.locator('.app-shell');
-  await expect(shell).toHaveCSS('background-color', 'rgb(245, 242, 222)');
-  await expect(shell).toHaveCSS('color-scheme', 'light');
+  await expect(shell).toHaveCSS('background-color', 'rgb(23, 27, 24)');
+  await expect(shell).toHaveCSS('color-scheme', 'dark');
   await expect(page.getByRole('button', { name: 'Crear juego', exact: true })).toBeEnabled();
-  await expect(page.getByRole('button', { name: 'Crear juego', exact: true })).toHaveCSS('box-shadow', 'rgb(120, 146, 103) 4px 4px 0px 0px');
+  await expect(page.getByRole('button', { name: 'Crear juego', exact: true })).toHaveCSS('box-shadow', 'none');
   await expect(page.getByRole('button', { name: 'Crear juego de ejemplo' })).toHaveCSS('box-shadow', 'none');
   for (const control of await page.locator('.library-create, .import-panel, .library-create input, .ds-scope .button').all()) {
     await expect(control).toHaveCSS('border-radius', '0px');
   }
-  await expect(page.locator('.ds-pixel-rule')).toHaveCount(2);
-  for (const rule of await page.locator('.ds-pixel-rule').all()) {
-    await expect(rule).toHaveCSS('height', '8px');
-    await expect(rule).toHaveAttribute('aria-hidden', 'true');
-  }
+  await expect(page.locator('.ds-pixel-rule, .ds-pixel-frame')).toHaveCount(0);
+  await expect(page.getByText(/UI PACK|32.32 FRAME|16.16/)).toHaveCount(0);
   await expect(page.getByRole('heading', { name: 'Aún no tienes juegos' })).toBeVisible();
+  for (const width of [390, 768, 1440, 1472]) {
+    await page.setViewportSize({ width, height: 1000 });
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    if (width === 390) {
+      await expect(page.locator('.library-navigation')).not.toHaveAttribute('open');
+      await expect(page.locator('.library-navigation .nav-item').first()).toBeHidden();
+    }
+    await page.screenshot({ path: `test-results/design-empty-${width}.png`, fullPage: true });
+  }
+  const sidebarBox = await page.locator('.sidebar').boundingBox();
+  const shellBox = await shell.boundingBox();
+  expect(sidebarBox!.height).toBe(shellBox!.height);
   await page.screenshot({ path: 'test-results/design-empty.png', fullPage: true });
   const input = page.getByLabel('Nombre del nuevo juego');
   await page.getByRole('button', { name: 'Crear juego', exact: true }).click();
   await expect(input).toHaveAttribute('aria-invalid', 'true');
+  await expect(input).toBeFocused();
   await expect(input).toHaveAccessibleDescription(/Escribe un nombre/);
   await input.fill('Archivo de exploración: un juego con un nombre muy largo para comprobar la biblioteca');
   await page.getByRole('button', { name: 'Crear juego', exact: true }).click();
   await expect(page.locator('.game-tile')).toHaveCount(1);
   await expect(page.locator('.game-tile')).toHaveCSS('overflow', 'visible');
-  const corner = await page.locator('.game-tile').evaluate(element => {
-    const style = getComputedStyle(element, '::before');
-    return { top: style.top, width: style.width, border: style.borderTopWidth, pointerEvents: style.pointerEvents };
-  });
-  expect(corner).toEqual({ top: '-4px', width: '16px', border: '4px', pointerEvents: 'none' });
   await expect(page.getByRole('status').filter({ hasText: 'Juego creado' })).toBeVisible();
 
-  for (const width of [390, 768, 1440]) {
+  for (const width of [390, 768, 1440, 1472]) {
     await page.setViewportSize({ width, height: 1000 });
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    if (width <= 760) await page.locator('.library-navigation summary').click();
     const home = await page.getByRole('link', { name: 'Mis juegos', exact: true }).boundingBox();
     const guide = await page.getByRole('link', { name: 'Guía de uso' }).boundingBox();
     expect(home!.x + home!.width <= guide!.x || guide!.x + guide!.width <= home!.x || home!.y + home!.height <= guide!.y || guide!.y + guide!.height <= home!.y).toBe(true);
@@ -49,9 +55,8 @@ test('piloto editorial: estados, teclado, adaptación y aislamiento', async ({ p
   const remove = page.getByRole('button', { name: 'Eliminar juego', exact: true });
   await remove.click();
   const dialog = page.getByRole('dialog', { name: 'Eliminar juego', exact: true });
-  await expect(dialog).toHaveCSS('background-color', 'rgb(255, 253, 242)');
+  await expect(dialog).toHaveCSS('background-color', 'rgb(32, 38, 30)');
   await expect(dialog).toHaveCSS('border-radius', '0px');
-  expect(await dialog.evaluate(element => getComputedStyle(element, '::before').top)).toBe('0px');
   await expect(dialog.getByRole('button', { name: 'Eliminar definitivamente' })).toHaveCSS('box-shadow', 'none');
   const dialogBox = await dialog.boundingBox();
   expect(Math.abs(dialogBox!.y + dialogBox!.height / 2 - 500)).toBeLessThanOrEqual(1);
@@ -68,7 +73,7 @@ test('piloto editorial: estados, teclado, adaptación y aislamiento', async ({ p
   await page.getByRole('link', { name: 'Guía de uso' }).click();
   const guard = page.getByRole('dialog', { name: 'Cambios sin guardar' });
   await expect(guard).toHaveClass(/ds-scope/);
-  await expect(guard).toHaveCSS('background-color', 'rgb(255, 253, 242)');
+  await expect(guard).toHaveCSS('background-color', 'rgb(32, 38, 30)');
   await page.keyboard.press('Escape');
   await expect(page.getByRole('link', { name: 'Guía de uso' })).toBeFocused();
   await input.fill('');
@@ -78,8 +83,9 @@ test('piloto editorial: estados, teclado, adaptación y aislamiento', async ({ p
   await expect(page.locator('.import-panel [role=alert]')).toBeVisible();
   await page.getByLabel('Importar archivo JSON').focus();
   await page.getByLabel('Importar archivo JSON').setInputFiles({ name: 'example.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(demoGame)) });
+  await expect(page.locator('.selected-file')).toHaveText('example.json');
   const review = page.getByRole('dialog', { name: 'Revisar importación' });
-  await expect(review).toHaveCSS('background-color', 'rgb(255, 253, 242)');
+  await expect(review).toHaveCSS('background-color', 'rgb(32, 38, 30)');
   await page.setViewportSize({ width: 390, height: 844 });
   const reviewBox = await review.boundingBox();
   expect(Math.abs(reviewBox!.y + reviewBox!.height / 2 - 422)).toBeLessThanOrEqual(1);
@@ -104,10 +110,10 @@ test('piloto editorial: estados, teclado, adaptación y aislamiento', async ({ p
   await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(247, 248, 250)');
   await page.getByRole('link', { name: 'Guía de uso' }).click();
   await expect(page.locator('.ds-scope')).toHaveCount(0);
-  expect(await page.locator('html').evaluate(element => getComputedStyle(element).getPropertyValue('--ds-pixel'))).toBe('');
+  expect(await page.locator('html').evaluate(element => getComputedStyle(element).getPropertyValue('--ds-bg'))).toBe('');
 });
 
-test('la pulsación pixelada respeta movimiento reducido y conserva el foco', async ({ page }) => {
+test('acciones sin desplazamiento y foco visible', async ({ page }) => {
   await page.goto(appUrl('/'));
   const primary = page.getByRole('button', { name: 'Crear juego', exact: true });
   await expect(primary).toBeEnabled();
@@ -116,14 +122,14 @@ test('la pulsación pixelada respeta movimiento reducido y conserva el foco', as
   await expect(primary).toHaveCSS('outline-offset', '3px');
   await expect(primary).toHaveCSS('clip-path', 'none');
   await page.keyboard.down('Space');
-  await expect(primary).toHaveCSS('transform', 'matrix(1, 0, 0, 1, 2, 2)');
+  await expect(primary).toHaveCSS('transform', 'none');
   await page.keyboard.up('Space');
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await primary.focus();
   await page.keyboard.down('Space');
   await expect(primary).toHaveCSS('transform', 'none');
   await page.keyboard.up('Space');
-  await expect(primary).toBeFocused();
+  await expect(page.getByLabel('Nombre del nuevo juego')).toBeFocused();
 });
 
 test('objetivos táctiles y carga estable con movimiento reducido', async ({ browser }) => {
@@ -135,7 +141,7 @@ test('objetivos táctiles y carga estable con movimiento reducido', async ({ bro
     await expect(button).toBeEnabled();
     const before = await button.boundingBox();
     expect(before!.height).toBeGreaterThanOrEqual(44);
-    for (const control of await page.locator('.ds-scope .nav-item, .ds-scope input, .ds-scope .button').all()) {
+    for (const control of await page.locator('.ds-scope summary, .ds-scope input, .ds-scope .button').all()) {
       expect((await control.boundingBox())!.height).toBeGreaterThanOrEqual(44);
     }
     let release!: () => void;

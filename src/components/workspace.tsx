@@ -25,13 +25,22 @@ const PrintExport = dynamic(() => import('./print-export'), { ssr: false, loadin
 const navigation = [['cards', 'cartas', Layers3, 'Cartas'], ['settings', 'configuracion', Settings2, 'Configuración'], ['rules', 'reglamento', BookOpen, 'Reglamento'], ['export', 'exportar', ArrowDownToLine, 'Exportar / imprimir']] as const;
 
 function Shell({ view, record, children }: { view: View; record?: StoredGame; children: ReactNode }) {
+  const [navigationOpen, setNavigationOpen] = useState(true);
+  useEffect(() => {
+    if (view !== 'games') return;
+    const media = window.matchMedia('(max-width: 760px)');
+    const update = () => setNavigationOpen(!media.matches);
+    update(); media.addEventListener('change', update);
+    return () => media.removeEventListener('change', update);
+  }, [view]);
   return <div className={`app-shell${view === 'games' ? ' ds-scope' : ''}`}><a href="#content" className="skip-link">Saltar al contenido</a>
-    <aside className="sidebar"><Link href="/" className="brand"><span className="brand-symbol"><Layers3 size={22} /></span>TCGCreator</Link><div className="sidebar-caption">TU ESPACIO CREATIVO</div>
-      <Link className={`nav-item ${view === 'games' ? 'active' : ''}`} href="/" aria-current={view === 'games' ? 'page' : undefined}><FolderOpen size={19} />Mis juegos</Link><div className="sidebar-divider" />
+    <aside className="sidebar">{view === 'games' ? <><Link href="/" className="brand"><Layers3 size={32} aria-hidden="true" />TCGCreator</Link><details className="library-navigation" open={navigationOpen} onToggle={event => setNavigationOpen(event.currentTarget.open)}><summary>Espacio creativo</summary><nav aria-label="Espacio creativo"><div className="sidebar-caption">[ ESPACIO CREATIVO ]</div><Link className="nav-item active" href="/" aria-current="page"><span aria-hidden="true">◆</span>Mis juegos</Link><Link className="nav-item" href="/guia/"><span aria-hidden="true">·</span>Guía de uso</Link></nav></details><div className="sidebar-bottom"><div><span className="sage-ornament" aria-hidden="true">✦</span> DATOS LOCALES</div><p>De una idea a tu próxima partida en el reino.</p></div></> : <><Link href="/" className="brand"><span className="brand-symbol"><Layers3 size={22} /></span>TCGCreator</Link><div className="sidebar-caption">TU ESPACIO CREATIVO</div>
+      <Link className="nav-item" href="/"><FolderOpen size={19} />Mis juegos</Link><div className="sidebar-divider" />
       {record && <><div className="sidebar-caption">JUEGO ACTUAL</div><div className="current-game">{record.data.game.name}</div><nav aria-label="Secciones del juego">{navigation.map(([key, path, Icon, label]) => <Link key={key} href={gameUrl(path, record.id)} className={`nav-item ${view === key || (key === 'cards' && view === 'editor') ? 'active' : ''}`} aria-current={view === key ? 'page' : undefined}><Icon size={18} />{label}</Link>)}</nav></>}
       <Link className="nav-item" href="/guia/">Guía de uso</Link><div className="sidebar-bottom"><div className="mode-dot" /> Datos en este navegador<p>De una idea a tu próxima partida.</p></div>
+</>}
     </aside><div className="main-shell"><header className="topbar"><span>Espacio de trabajo <ChevronRight size={14} /><strong>{titles[view]}</strong></span><span className="demo-tag"><span />Guardado local</span></header>
-      <main id="content" tabIndex={-1}>{children}</main><footer>TCGCreator / LABORATORIO DE JUEGOS<span>Hecho para imaginar, probar y jugar.</span></footer></div></div>;
+      <main id="content" tabIndex={-1}>{children}</main><footer>TCGCreator / LABORATORIO DE JUEGOS<span>{view === 'games' ? 'Hecho para imaginar, probar y jugar en cualquier reino.' : 'Hecho para imaginar, probar y jugar.'}</span></footer></div></div>;
 }
 export function Workspace({ view }: { view: View }) {
   return view === 'games' ? <Shell view={view}><GameLibrary /></Shell> : <GameContent view={view} />;
