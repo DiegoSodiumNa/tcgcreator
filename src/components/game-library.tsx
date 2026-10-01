@@ -43,6 +43,7 @@ export function GameLibrary() {
   };
   useDraftGuard(!!name, busy, () => create(), 'editorial');
   return <>
+    <meta name="google-site-verification" content="f1QAog9FmsCxkVFYFcy4wPrYHnsshQ0vVUkGAvAPAKc" />
     <div className="page-heading"><div className="eyebrow">MIS JUEGOS</div><h1>Tus ideas empiezan aquí.</h1><p>Crea un juego o empieza con doce cartas de ejemplo.</p></div>
     <div className="ds-pixel-rule heading-pixel-rule" aria-hidden="true" />
     <section className="panel ds-pixel-frame library-create" aria-label="Crear juego"><form noValidate onSubmit={event => { event.preventDefault(); void create(); }}><label>Nombre del nuevo juego<input value={name} onChange={event => { setName(event.target.value); setNameError(''); }} disabled={busy} required aria-invalid={!!nameError} aria-describedby={`${nameHelpId}${nameError ? ` ${nameErrorId}` : ''}`} /></label>{nameError && <p id={nameErrorId} role="alert" className="field-error">{nameError}</p>}<div className="action-row"><Button disabled={busy || loading} loading={creating === 'empty'}><Plus size={16} />Crear juego</Button><Button type="button" variant="outline" disabled={busy || loading} loading={creating === 'example'} onClick={() => void create(true)}>Crear juego de ejemplo</Button></div></form><p id={nameHelpId} className="muted">Los datos pertenecen a este navegador y dirección del sitio. Borrar sus datos elimina los juegos locales. Conserva tus imágenes originales.</p></section>
