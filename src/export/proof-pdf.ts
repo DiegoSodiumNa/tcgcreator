@@ -8,12 +8,12 @@ export async function createProofPdf(png: Uint8Array, fontBytes: Uint8Array): Pr
   const font = await pdf.embedFont(fontBytes, { subset: true });
   const image = await pdf.embedPng(png);
   const page = pdf.addPage([pt(PROOF.page.width), pt(PROOF.page.height)]);
-  pdf.setTitle('Forja - Prueba de impresión y calibración');
-  pdf.setAuthor('Forja');
+  pdf.setTitle('TCGCreator - Prueba de impresión y calibración');
+  pdf.setAuthor('TCGCreator');
   pdf.catalog.getOrCreateViewerPreferences().setPrintScaling(PrintScaling.None);
   const ink = rgb(.14, .23, .2);
   const text = (value: string, x: number, y: number, size = 10) => page.drawText(value, { x: pt(x), y: pt(y), size, font, color: ink });
-  text('FORJA / PRUEBA DE IMPRESIÓN', 20, 257, 17);
+  text('TCGCreator / PRUEBA DE IMPRESIÓN', 20, 257, 17);
   text('Imprimir al 100 % / Tamaño real. Desactivar «Ajustar a página».', 20, 247);
   text('Papel Carta (215,9 × 279,4 mm). Solo frente.', 20, 239);
   page.drawImage(image, { x: pt(PROOF.card.x), y: pt(PROOF.card.y), width: pt(PROOF.card.width), height: pt(PROOF.card.height) });

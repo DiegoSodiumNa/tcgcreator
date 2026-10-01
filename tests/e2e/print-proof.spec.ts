@@ -18,8 +18,8 @@ test('descarga PNG y PDF con geometría física verificable', async ({ page }) =
   expect(png.readUInt32BE(20)).toBe(1039);
   const pdfDownload = page.waitForEvent('download');
   await page.getByRole('button', { name: 'Descargar PDF de prueba' }).click();
-  await (await pdfDownload).saveAs('output/pdf/prueba-impresion-forja.pdf');
-  const pdf = await PDFDocument.load(await readFile('output/pdf/prueba-impresion-forja.pdf'));
+  await (await pdfDownload).saveAs('output/pdf/prueba-impresion-tcgcreator.pdf');
+  const pdf = await PDFDocument.load(await readFile('output/pdf/prueba-impresion-tcgcreator.pdf'));
   expect(pdf.getPageCount()).toBe(1);
   const sheet = pdf.getPage(0);
   expect(sheet.getWidth()).toBeCloseTo(612, 5);

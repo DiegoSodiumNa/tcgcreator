@@ -1,6 +1,6 @@
-# Editor de juegos y cartas
+# TCGCreator
 
-**Prototipo publicado: [Abrir Forja](https://diegosodiumna.github.io/tcgcreator/).** Pasos 01, 02, 04–10 y 12 implementados; verificación digital del paso 11 completa. La medición física de los pasos 03 y 11 sigue pendiente. Aplicación estática con juegos e imágenes en IndexedDB, dos plantillas, respaldo JSON y exportación de cartas, reglamento y listado.
+**Prototipo publicado: [Abrir TCGCreator](https://diegosodiumna.github.io/tcgcreator/).** Pasos 01, 02, 04–10 y 12 implementados; verificación digital del paso 11 completa. La medición física de los pasos 03 y 11 sigue pendiente. Aplicación estática con juegos e imágenes en IndexedDB, dos plantillas, respaldo JSON y exportación de cartas, reglamento y listado.
 
 La **Guía de uso**, accesible desde la barra lateral, explica el recorrido completo. Instrucciones de despliegue y recuperación en [docs/publicacion.md](docs/publicacion.md).
 
@@ -78,7 +78,7 @@ Los botones esperan a que la imagen y la fuente carguen. Un error bloquea la des
 
 Imprime el PDF en papel Carta a **100 % / Tamaño real**, sin ajustar a la página. Mide ancho y alto de la carta y del cuadrado, entre centros de línea. Anota los resultados en `docs/calibracion-paso-03.md`; la comprobación digital no aprueba la medida física.
 
-Los archivos generados por la prueba automatizada están en `output/pdf/centinela-mecanico.png` y `output/pdf/prueba-impresion-forja.pdf`. No incluyen datos personales.
+Los archivos generados por la prueba automatizada están en `output/pdf/centinela-mecanico.png` y `output/pdf/prueba-impresion-tcgcreator.pdf`. No incluyen datos personales.
 
 ## Compilación estática
 

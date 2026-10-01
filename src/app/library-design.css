@@ -7,7 +7,7 @@
 .ds-scope .page-heading p { font-size: var(--ds-type-body); }
 .ds-scope .eyebrow, .ds-scope .sidebar-caption { font: 400 var(--ds-type-caption)/1.5 var(--ds-font-meta); letter-spacing: .08em; color: var(--ds-text-muted); }
 .ds-scope .sidebar { background: var(--ds-surface); border-color: var(--ds-divider); padding: var(--ds-space-8) var(--ds-space-4); }
-.ds-scope .brand { font-family: var(--ds-font-display); font-size: var(--ds-type-title); font-weight: 400; margin: 0 var(--ds-space-2) var(--ds-space-12); }
+.ds-scope .brand { font-family: var(--ds-font-display); font-size: 24px; font-weight: 400; margin: 0 var(--ds-space-2) var(--ds-space-12); }
 .ds-scope .brand-symbol { background: var(--ds-action); color: var(--ds-action-text); border-radius: var(--ds-radius-control); padding: var(--ds-space-2); }
 .ds-scope .brand-dot { color: var(--ds-text); }
 .ds-scope .nav-item { border: 1px solid transparent; border-radius: var(--ds-radius-control); min-height: var(--ds-control-height); color: var(--ds-text-muted); font-size: var(--ds-type-control); gap: var(--ds-space-2); padding: var(--ds-space-2); margin-bottom: var(--ds-space-1); }

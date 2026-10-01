@@ -24,8 +24,8 @@ p { color: var(--muted); }
 svg { flex-shrink: 0; }
 .app-shell { min-height: 100vh; display: flex; }
 .sidebar { width: 240px; flex-shrink: 0; background: white; border-right: 1px solid var(--border); padding: 30px 20px; display: flex; flex-direction: column; position: sticky; top: 0; height: 100vh; }
-.brand { display: flex; align-items: center; font-size: 32px; font-weight: 750; letter-spacing: -1px; margin: 0 10px 48px; line-height: 1; }
-.brand-symbol { background: var(--primary); padding: 10px; border-radius: 11px; color: white; margin-right: 10px; }
+.brand { display: flex; align-items: center; font-size: 20px; font-weight: 750; letter-spacing: -1px; margin: 0 10px 48px; line-height: 1; }
+.brand-symbol { flex-shrink: 0; background: var(--primary); padding: 10px; border-radius: 11px; color: white; margin-right: 10px; }
 .brand-dot { color: var(--primary); }
 .sidebar-caption { font-size: 10px; letter-spacing: 1.7px; color: #75828c; font-weight: 700; margin: 0 12px 14px; }
 .nav-item { display: flex; align-items: center; gap: 11px; min-height: 45px; padding: 10px 12px; margin-bottom: 5px; color: #5a6975; border-radius: 7px; font-size: 13px; }

@@ -2,7 +2,7 @@
 
 **Estado: PENDIENTE. No se ha impreso ni medido la hoja.**
 
-Archivo: `output/pdf/prueba-impresion-forja.pdf`, generado desde la aplicación. Papel: Carta (215,9 × 279,4 mm). Imprimir al 100 % / Tamaño real; desactivar ajuste a página. Usar una regla milimétrica y medir ambos ejes. El borde externo de la carta corresponde a su tamaño de corte; el cuadrado se mide entre centros de línea.
+Archivo: `output/pdf/prueba-impresion-tcgcreator.pdf`, generado desde la aplicación. Papel: Carta (215,9 × 279,4 mm). Imprimir al 100 % / Tamaño real; desactivar ajuste a página. Usar una regla milimétrica y medir ambos ejes. El borde externo de la carta corresponde a su tamaño de corte; el cuadrado se mide entre centros de línea.
 
 | Dato | Resultado |
 | --- | --- |

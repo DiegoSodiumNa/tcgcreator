@@ -9,7 +9,7 @@ export async function createCardsPdf(selection: Selection, settings: PrintSettin
   const pdf = await PDFDocument.create(); pdf.registerFontkit(fontkit);
   const font = await pdf.embedFont(fontBytes, { subset: true });
   pdf.catalog.getOrCreateViewerPreferences().setPrintScaling(PrintScaling.None);
-  pdf.setTitle('Forja - Tanda de cartas'); pdf.setSubject('Imprimir al 100 %, sin ajustar a página. Cartas de 63 x 88 mm.');
+  pdf.setTitle('TCGCreator - Tanda de cartas'); pdf.setSubject('Imprimir al 100 %, sin ajustar a página. Cartas de 63 x 88 mm.');
   const images = new Map<string, Awaited<ReturnType<typeof pdf.embedPng>>>();
   for (const [index, entry] of selection.entries()) {
     signal.throwIfAborted(); progress(`Renderizando diseño ${index + 1} de ${selection.length}…`);

@@ -1,4 +1,4 @@
-name: Verify and publish Forja
+name: Verify and publish TCGCreator
 on:
   push:
     branches: [master]

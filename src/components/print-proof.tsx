@@ -46,7 +46,7 @@ export default function PrintProof() {
       if (format === 'png') downloadBytes(png, 'image/png', 'centinela-mecanico.png');
       else {
         const { createProofPdf } = await import('@/export/proof-pdf');
-        downloadBytes(await createProofPdf(png, ready.assets.fontBytes), 'application/pdf', 'prueba-impresion-forja.pdf');
+        downloadBytes(await createProofPdf(png, ready.assets.fontBytes), 'application/pdf', 'prueba-impresion-tcgcreator.pdf');
       }
       setMessage(format === 'png' ? 'PNG preparado para descargar.' : 'PDF preparado. Imprime a tamaño real y registra las medidas.');
     } catch (e) { setError(e instanceof Error ? e.message : 'No se pudo generar el archivo.'); }

@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function Guide() {
   return <main id="content" className="usage-guide"><Link href="/" className="back-link">Volver a Mis juegos</Link>
-    <div className="page-heading"><div className="eyebrow">FORJA</div><h1>Guía de uso</h1><p>Crea tu juego, prepara cartas y llévalas a la mesa.</p></div>
+    <div className="page-heading"><div className="eyebrow">TCGCreator</div><h1>Guía de uso</h1><p>Crea tu juego, prepara cartas y llévalas a la mesa.</p></div>
     <section className="panel"><h2>1. Crear un juego y sus conceptos</h2><p>En Mis juegos, escribe un nombre y pulsa Crear juego. También puedes explorar Crear juego de ejemplo. Abre Configuración y crea tipos, sus subtipos y atributos. Un atributo compartido entre dos tipos aparece una sola vez en la carta. Añade supertipos, recursos y habilidades si los necesitas.</p>
     <h2>2. Crear, personalizar y guardar cartas</h2><p>En Cartas, pulsa Crear carta, escribe el nombre y elige sus tipos. Completa atributos, texto y habilidades. En Diseño elige la plantilla A o B, colores, ilustración, recorte y hasta cuatro espacios de atributos. Los atributos restantes aparecen en el texto. Guarda explícitamente y comprueba «Guardado en este navegador». Si una carta no cabe, corrige el texto antes de exportarla.</p>
     <h2>3. Escribir e imprimir el reglamento</h2><p>En Reglamento, escribe texto con párrafos y saltos de línea. Guardar reglamento conserva los cambios en el juego. Descargar reglamento PDF usa el texto visible, aunque todavía no lo hayas guardado. Elige Carta o A4. Descargar el PDF no guarda ni sustituye el respaldo del juego.</p>

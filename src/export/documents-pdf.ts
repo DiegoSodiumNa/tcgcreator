@@ -55,7 +55,7 @@ async function document(paper: DocumentPaper, bytes: Uint8Array, title: string, 
   pdf.registerFontkit(fontkit);
   const font = await pdf.embedFont(bytes, { subset: true });
   checkCharacters(font, [title, ...texts]);
-  pdf.setTitle(title); pdf.setCreator('Forja');
+  pdf.setTitle(title); pdf.setCreator('TCGCreator');
   const width = mmToPoints(dimensions.width), height = mmToPoints(dimensions.height);
   const usable = width - 2 * MARGIN;
   let page: PDFPage;

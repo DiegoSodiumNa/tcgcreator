@@ -5,7 +5,7 @@ Fecha: 29 de septiembre de 2026. **Implementación digital terminada; impresión
 ## Entregables
 
 - `output/pdf/centinela-mecanico.png`: carta de prueba de 744 × 1039 píxeles.
-- `output/pdf/prueba-impresion-forja.pdf`: una página Carta con la carta, marcas de corte, cuadro de 50 mm e instrucciones/registro de medición.
+- `output/pdf/prueba-impresion-tcgcreator.pdf`: una página Carta con la carta, marcas de corte, cuadro de 50 mm e instrucciones/registro de medición.
 - Componente de prueba en `/exportar/?game=game-forja`, cargado solo en el cliente.
 - Fuente Noto Sans Regular local, licencia SIL OFL incluida; ilustración SVG original local y permiso de redistribución documentado.
 
@@ -35,7 +35,7 @@ npm run test:e2e
 Las pruebas regeneran los dos entregables y capturas en `test-results/`. Para revisar el PDF visualmente se usó Ghostscript 10.01.2 instalado en este equipo, al no encontrarse Poppler:
 
 ```powershell
-& 'C:\Program Files\gs\gs10.01.2\bin\gswin64c.exe' -dSAFER -dBATCH -dNOPAUSE -sDEVICE=png16m -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -r144 '-sOutputFile=tmp/pdfs/prueba-%d.png' output/pdf/prueba-impresion-forja.pdf
+& 'C:\Program Files\gs\gs10.01.2\bin\gswin64c.exe' -dSAFER -dBATCH -dNOPAUSE -sDEVICE=png16m -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -r144 '-sOutputFile=tmp/pdfs/prueba-%d.png' output/pdf/prueba-impresion-tcgcreator.pdf
 ```
 
 El registro manual está en `calibracion-paso-03.md`. No se registraron medidas ficticias ni se declaró aceptado el hito H1.
